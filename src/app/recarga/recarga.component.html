@@ -1,0 +1,81 @@
+<app-nav></app-nav>
+
+<div class="component-container">
+  <div class="page-head">
+    <i class="fa fa-chevron-left fa-3x" id="return" aria-hidden="true" routerLink="/menu-proveedor"></i>
+    <h1 class="page-title">{{ titulo }}</h1>
+  </div>
+  <div class="page-main">
+    <div class="page-section">
+      <div class="row">
+       <div class="col-md-6">
+         <div class="input-group" style="padding-top: 5%">
+           <input type="text" class="form-control text-primary" [value]="nombre" [(ngModel)]="nombre" placeholder="Ingrese el Cliente/a a Buscar">
+           <span class="input-group-btn">
+              <button class="btn btn-primary" (click)="buscarCliente()" type="button">Buscar <i class="fa fa-search-plus" aria-hidden="true"></i></button>
+            </span>
+         </div><!-- /input-group -->
+
+         <h5><strong>{{ listado }}</strong></h5>
+         <ul class="list-group" style=" margin-left: 0%;">
+           <li class="list-group-item" *ngFor="let item of clientes | async">
+              <button class="btn btn-default" (click)="setCliente(item)" type="button">{{ item.nombre }} <i class="fa fa-user-plus" aria-hidden="true">
+              </i>
+              </button>
+           </li>
+         </ul>
+         <div class="alert-danger"><strong>{{ resultado }}</strong></div>
+       </div>
+        <div class="col-md-6">
+          <ul class="list-group" style="padding-top: 5%">
+            <li class="list-group-item"><strong>Nombre:</strong> &nbsp;&nbsp; <kbd>{{cliente.nombre}}</kbd></li>
+            <li class="list-group-item"><strong>Saldo Actual:</strong> &nbsp;&nbsp; <kbd>${{cliente.saldo}}</kbd></li>
+            <li class="list-group-item"><strong>Estado:</strong>&nbsp;&nbsp; <kbd>{{cliente.estado ? 'Activo' : 'Inactivo'}}</kbd></li>
+            <li class="list-group-item"><strong>Saldo a Recargar:</strong> &nbsp;&nbsp; &nbsp;&nbsp;
+
+              <label class="radio-inline"><input type="radio" name="optradio" value="5" [(ngModel)]="radioValue" ><h5>$5</h5></label>
+              <label class="radio-inline"><input type="radio" name="optradio" value="10" [(ngModel)]="radioValue"  ><h5>$10</h5></label>
+              <label class="radio-inline"><input type="radio" name="optradio" value="20" [(ngModel)]="radioValue"  ><h5>$20</h5></label>
+
+            </li>
+            <li class="list-group-item"><button type="button" class="btn btn-primary" (click)="modalVerificar.open()"> Recargar <i class="fa fa-plus-circle" aria-hidden="true"></i></button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal #modalVerificar>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">Confirmación de Recarga</h4>
+  </modal-header>
+
+  <modal-body>
+    <h3>
+    Abonar <kbd> {{this.radioValue}} $ </kbd> &nbsp; al cliente/a &nbsp;"{{cliente.nombre}}"<br>
+    </h3>
+  </modal-body>
+
+  <modal-footer>
+    <button type="button" class="btn btn-primary col-lg-5" (click)="recargar()"><span class="glyphicon glyphicon-check"></span> Aceptar</button>
+    <button type="button" class="btn btn-danger col-lg-5" (click)="modalVerificar.close()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+  </modal-footer>
+</modal>
+
+
+<modal #modalRecargaExitosa>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">Mensaje</h4>
+  </modal-header>
+
+  <modal-body >
+    <h3>
+      Recargar correctamente Realizada
+    </h3>
+  </modal-body>
+
+  <modal-footer style="text-align: center">
+    <button type="button" class="btn btn-primary col-lg-5" data-dismiss="modal"><i class="fa fa-check-square" aria-hidden="true"></i> Aceptar</button>
+  </modal-footer>
+</modal>

@@ -1,0 +1,16 @@
+.navbar-dark{
+	background: #000;
+}
+
+.navbar-dark .navbar-nav > li > a{
+	color: #fff;
+}
+
+/*Nav profile picture*/
+.nav-img-user {
+  display: inline;
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}

@@ -1,0 +1,267 @@
+.navbar{
+  margin-bottom:0;
+  border:none;
+}
+
+.navbar-brand .glyphicon{
+  margin-right:6px;
+}
+
+.hero{
+  background:url(../../assets/img/city_bg.jpg) no-repeat center;
+  background-size:cover;
+  border:none;
+}
+
+@media (min-width:992px) {
+  .hero .get-it{
+    text-align:right;
+    margin-top:80px;
+    padding-right:30px;
+  }
+}
+
+@media (max-width:992px) {
+  .hero .get-it{
+    text-align:center;
+  }
+}
+
+@media (max-width:992px) {
+  .hero .phone-preview{
+    text-align:center;
+  }
+}
+
+.hero .get-it h1, .hero .get-it p{
+  color:#fff;
+  text-shadow:2px 2px 3px rgba(0,0,0,0.3);
+  margin-bottom:40px;
+}
+
+.hero .get-it .btn{
+  margin-left:10px;
+  margin-bottom:10px;
+  text-shadow:none;
+}
+
+div.iphone-mockup{
+  position:relative;
+  max-width:250px;
+  margin:20px;
+  display:inline-block;
+}
+
+.iphone-mockup img.device{
+  width:100%;
+  height:auto;
+}
+
+.iphone-mockup .screen{
+  position:absolute;
+  width:88%;
+  height:77%;
+  top:12%;
+  border-radius:2px;
+  left:6%;
+  border:1px solid #444;
+  background-color:#aaa;
+  overflow:hidden;
+  background:url(../../assets/img/screen-content-iphone-6.jpg);
+  background-size:cover;
+  background-position:center;
+}
+
+.iphone-mockup .screen:before{
+  content:'';
+  background-color:#fff;
+  position:absolute;
+  width:70%;
+  height:140%;
+  top:-12%;
+  right:-60%;
+  transform:rotate(-19deg);
+  opacity:0.2;
+}
+
+.icon-feature{
+  text-align:center;
+}
+
+.icon-feature .glyphicon{
+  font-size:60px;
+}
+
+section.features{
+  background-color:#369;
+  padding:40px 0;
+  color:#fff;
+}
+
+.features h2{
+  color:#fff;
+}
+
+.features .icon-features{
+  margin-top:15px;
+}
+
+.testimonials blockquote{
+  text-align:center;
+}
+
+section.testimonials{
+  margin:50px 0;
+}
+
+.site-footer{
+  padding:20px 0;
+  text-align:center;
+}
+
+@media (min-width:768px) {
+  .site-footer h5{
+    text-align:left;
+  }
+}
+
+.site-footer h5{
+  color:inherit;
+  font-size:20px;
+}
+
+.site-footer .social-icons a:hover{
+  opacity:1;
+}
+
+.site-footer .social-icons a{
+  display:inline-block;
+  width:32px;
+  border:none;
+  font-size:20px;
+  border-radius:50%;
+  margin:4px;
+  color:#fff;
+  text-align:center;
+  background-color:#798FA5;
+  height:32px;
+  opacity:0.8;
+  line-height:32px;
+}
+
+@media (min-width:768px) {
+  .site-footer .social-icons{
+    text-align:right;
+  }
+}
+
+#menu{
+  text-align:center;
+}
+
+span.label.label-default{
+  background-color:initial;
+  color:#000000;
+  font-size:large;
+  font-family:'Source Sans Pro';
+}
+
+img.img-rounded{
+  margin:10px 0px 10px 0px;
+  border-radius:30px;
+}
+
+#menu_body{
+  padding-left:5%;
+  background:url(../../assets/img/city_bg.jpg) no-repeat center;
+  background-size:cover;
+}
+
+div.col-md-6{
+  border:solid 1px;
+  background-color:rgba(255,255,255,0.75);
+}
+
+#menu_especial{
+  align-content:center;
+  text-align:center;
+  background-color:rgba(58,  56,  78,  0.5);
+  border:solid 2px;
+  padding:0 10px 10px 10px;
+  margin:0px 0px 20px;
+  box-shadow:0px 2px 4px 0px rgba(0,0,0,0.16), 0px 2px 10px 0px rgba(0,0,0,0.12) !important;
+}
+
+img#img_menu_especial.col-md-12{
+}
+
+#menu_especial{
+  margin-bottom:5%;
+  border:solid 1px;
+}
+
+div.container.col-md-12{
+  border:solid 1px;
+  background-color:rgba(58,  56,  78,  0.5);
+}
+
+div#img_comentario{
+}
+
+div#menu_especial.container.col-md-5{
+  margin:0px 10px 20px 20px;
+  box-shadow:0px 2px 4px 0px rgba(0,0,0,0.16), 0px 2px 10px 0px rgba(0,0,0,0.12) !important;
+  background-color:rgba(58,  56,  78,  0.5);
+}
+
+div.row.col-md-5{
+  margin:0px 10px 10px 10px;
+  color:#F8F8FF;
+}
+
+h3.text-muted{
+  color:#000;
+}
+
+h2.text-right.text-muted.media{
+  color:#F8F8FF;
+}
+
+div.col-md-12{
+  color:#F8F8FF;
+}
+
+span.label.label-default.col-md-6{
+  color:#F8F8FF;
+}
+
+/* Mis clases*/
+.menu-panel {
+  border-radius: 10px;
+  border-style: solid;
+  background-color: rgba(78, 93, 108, 0.9);
+  margin: 20px;
+  padding: 50px 15px;
+}
+
+.work-container {
+  padding: 15px;
+  background: rgba(210, 210, 210, 1);
+  text-align: left;
+  color: black;
+  border-style: inset;
+  border-color: rgba(82, 118, 152, 1);
+}
+
+.work-container label{
+  color: black;
+}
+
+.cliente-container {
+  background: white;
+  border: solid 1px;
+}
+
+.cliente-container div.col-md-6{
+  border-style: none;
+}
