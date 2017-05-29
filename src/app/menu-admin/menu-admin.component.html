@@ -1,7 +1,7 @@
 <app-nav></app-nav>
 <div class="component-container">
   <div class="page-head">
-    <h1 class="page-title">Funciones:&nbsp;</h1><h1 *ngIf="administrador" class="page-title">Administrador &nbsp;</h1><h1 *ngIf="proveedor"  class="page-title">Proveedor </h1>
+    <h1 class="page-title">Funciones del Administrador</h1>
   </div>
   <div class="page-main">
     <div class="page-section">
@@ -26,7 +26,7 @@
             </div>
           </div>
         </div>
-        <!--Gestionar proveedores-->
+        <!--Gestionar afiliados-->
         <div *ngIf="administrador" class="col col-md-3">
           <div class="function-panel main-color-black">
             <div class="function-body">
@@ -46,6 +46,7 @@
             </div>
           </div>
         </div>
+
          <!--Gestionar Categoria-->
         <div *ngIf="proveedor" class="col col-md-3">
           <div class="function-panel main-color-orange">
@@ -67,26 +68,6 @@
           </div>
         </div>
         
-         <!--Gestionar Menu-->
-        <div *ngIf="proveedor" class="col col-md-3">
-          <div class="function-panel main-color-blue">
-            <div class="function-body">
-              <div class="row">
-                <div class="col col-md-4">
-                  <i class="fa fa-cutlery fa-5x" aria-hidden="true"></i>
-                </div>
-                <div class="col col-md-8">
-                  <h2>Cargar Menú</h2>
-                </div>
-              </div>
-            </div>
-            <div class="function-bottom fill-blue">
-              <a routerLink="/cargar-menu">
-                Ver detalles <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-        </div>
          <!--Registrar compra-->
         <div *ngIf="proveedor" class="col col-md-3">
           <div class="function-panel main-color-black">
@@ -107,27 +88,6 @@
             </div>
           </div>
         </div>
-         <!--Registrar credito-->
-        <div *ngIf="proveedor" class="col col-md-3">
-          <div class="function-panel main-color-orange">
-            <div class="function-body">
-              <div class="row">
-                <div class="col col-md-4">
-                  <i class="fa fa-credit-card-alt fa-5x" aria-hidden="true"></i>
-                </div>
-                <div class="col col-md-8">
-                  <h2>Registrar Crédito</h2>
-                </div>
-              </div>
-            </div>
-            <div class="function-bottom fill-orange">
-              <a  [routerLink]="['/recarga', id]">
-                Ver detalles <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>
