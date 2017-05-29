@@ -13,6 +13,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CategoriaComponent implements OnInit, OnDestroy {
 
+  // Variables de la interfaz
+  titulo = 'Registro de categorias del proveedor';
+
   @ViewChild('modalCategoriaEliminar')
   modalEliminar: ModalComponent;
 
@@ -22,12 +25,12 @@ export class CategoriaComponent implements OnInit, OnDestroy {
   @ViewChild('modalCategoriaCrear')
   modalCrear: ModalComponent;
 
-  titulo= "Registro de Categorias del Proveedor";
+  // Variables para gestionar categorias
   key;
   private id;
   private sub: any;
-  categoria : Categoria = new Categoria();
-  categorias : FirebaseListObservable<Categoria[]>;
+  categoria: Categoria = new Categoria();
+  categorias: FirebaseListObservable<Categoria[]>;
 
   constructor(private categoriaServicio: CategoriaService, private route: ActivatedRoute, public af: AngularFire) { }
 
@@ -52,20 +55,26 @@ export class CategoriaComponent implements OnInit, OnDestroy {
 
   eliminarCategoria() {
     this.categoriaServicio.eliminarCategoria(this.id, this.key);
+    this.categoria = new Categoria();
   }
 
   actualizarCategoria() {
     this.categoriaServicio.actualizarCategoria(this.id, this.key, this.categoria);
   }
 
-  openModalCategoriaEliminar(id: string, descripcion: string, nombre : string) {
+  openModalCategoriaCrear() {
+    this.modalCrear.open();
+    this.categoria = new Categoria();
+  }
+
+  openModalCategoriaEliminar(id: string, descripcion: string, nombre: string) {
     this.key = id;
     this.categoria.descripcion = descripcion;
     this.categoria.nombre = nombre;
     this.modalEliminar.open();
   }
 
-  openModalCategoriaEditar(id: string, descripcion: string, nombre : string) {
+  openModalCategoriaEditar(id: string, descripcion: string, nombre: string) {
     this.key = id;
     this.categoria.descripcion = descripcion;
     this.categoria.nombre = nombre;
