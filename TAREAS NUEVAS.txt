@@ -1,0 +1,15 @@
+Se debe validar que este completo para el ingreso de productos, 
+
+O
+
+Validar el ingreso de imagenes
+
+
+
+*emitir la nota de crédito
+	sobre el monto total sobre el valor asignado
+
+AFILIADO TIENEN UN NODO DE NOTAS DE CREDITO
+
+
+DESAFILIACIÓN DESDE LA APLICACIÓN MÓVIL
