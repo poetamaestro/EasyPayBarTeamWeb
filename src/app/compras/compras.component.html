@@ -28,7 +28,7 @@
               <div class="col-lg-5">
                 <select class="form-control" (change)="obtenerIdCliente($event.target.value)">
                   <option value="" selected>-- Seleccione un afiliado --</option>
-                  <option *ngFor="let afi of afiliados | async" [value]="afi.codigoQR">{{ afi.nombre }}</option>
+                  <option *ngFor="let afi of afiliados | async" [value]="afi.key">{{ afi.nombre }}</option>
                 </select>
               </div>
             </div>
@@ -91,12 +91,7 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-9"></div>
-      <div class="col-sm-3">
-        <button type="button" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Comprar</button>
-      </div>
-    </div>
+    <span class="app-action-md-fab"><button md-fab class="mat-fab"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button></span>
   </div>
 </div>
 
