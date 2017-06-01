@@ -46,10 +46,10 @@
 
   <modal-body>
     <ul class="list-group" style="padding-top: 5%">
-      <li class="list-group-item"><strong>Nombre:</strong> &nbsp;&nbsp; <kbd>{{afiliado.nombre}}</kbd></li>
-      <li class="list-group-item"><strong>Saldo actual:</strong> &nbsp;&nbsp; <kbd>${{afiliado.saldo}}</kbd></li>
+      <li class="list-group-item"><strong>Nombre:</strong>  {{afiliado.nombre}}</li>
+      <li class="list-group-item"><strong>Saldo actual:</strong> ${{afiliado.saldo}}</li>
 
-      <li class="list-group-item"><strong>Saldo a recargar:</strong> &nbsp;&nbsp; &nbsp;&nbsp;
+      <li class="list-group-item"><strong>Saldo a recargar:</strong> 
 
         <label class="radio-inline"><input type="radio" name="optradio" value="5" [(ngModel)]="radioValue" ><h5>$5</h5></label>
         <label class="radio-inline"><input type="radio" name="optradio" value="10" [(ngModel)]="radioValue"  ><h5>$10</h5></label>
@@ -72,7 +72,7 @@
   <modal-body>
     <div style="text-align: center;">
         <h3 >
-          Abonar <kbd> {{this.radioValue}} $ </kbd> &nbsp; al cliente/a &nbsp;"{{afiliado.nombre}}"<br>
+          Abonar  {{this.radioValue}} $  &nbsp; al cliente/a &nbsp;"{{afiliado.nombre}}"<br>
         </h3>
     </div>
   </modal-body>
