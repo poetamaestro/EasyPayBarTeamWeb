@@ -1,0 +1,6 @@
+En caso de que el repositorio no presente cambios por favor realizar
+
+git pull poetamaestro master
+
+
+ANTES SE DEBE REVISAR QUE NO EXISTAN CAMBIOS O COMMITS POR HACER
