@@ -11,7 +11,7 @@
     <div id="navcol-1" class="navbar-collapse collapse" [collapse]="isCollapsed">
       <ul class="nav navbar-nav">
         <li class="nav-item"><a routerLink="/menu-proveedor">Proveedor</a></li>
-        <li class="nav-item" ><a routerLink="/compras">Compras</a></li>
+        <li class="nav-item" ><a [routerLink]="['/compras', id]">Compras</a></li>
         <li class="nav-item" ><a [routerLink]="['/proveedor', id, 'categoria']">Categoria</a></li>
       </ul>
 

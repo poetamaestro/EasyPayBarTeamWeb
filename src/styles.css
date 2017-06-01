@@ -685,3 +685,18 @@ i#return:hover {
   bottom: 50px;
   right: 50px;
 }
+
+.mat-fab {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.color-panel-body {
+  background-color: #408ecd;
+}
+
+.colot-tr-table {
+  background-color: #0d5a90;
+  color: #fff;
+}

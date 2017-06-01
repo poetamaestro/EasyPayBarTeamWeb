@@ -1,10 +1,10 @@
-export class DetalleCompra{
+import { Producto } from './producto';
+
+export class DetalleCompra {
 	key: number;
 	cantidad: number;
 	precio: number;
-	productos: string;
+	productos: Array<Producto>;
 
-	constructor(){
-		this.key = 0;
-	}
+	constructor() { }
 }
