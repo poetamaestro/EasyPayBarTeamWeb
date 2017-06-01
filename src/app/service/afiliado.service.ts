@@ -6,10 +6,15 @@ import * as firebase from 'firebase';
 @Injectable()
 export class AfiliadoService {
 
+
+
 afiliados: FirebaseListObservable<Afiliado[]>;
 afiliado: Afiliado = new Afiliado();
 
-  constructor(private db: AngularFireDatabase) {  }
+
+  constructor(private db: AngularFireDatabase) { }
+
+
 
   getAfiliados( id): FirebaseListObservable<Afiliado[]> {
     return this.db.list('/proveedor/' + id + '/afiliados');
@@ -25,5 +30,6 @@ afiliado: Afiliado = new Afiliado();
       nombre: nuevoAfiliado.nombre,
       saldo: nuevoAfiliado.saldo,
     });
+
   }
 }

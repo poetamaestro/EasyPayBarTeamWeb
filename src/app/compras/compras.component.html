@@ -3,53 +3,118 @@
 <div class="component-container">
   <div class="page-head">
     <i class="fa fa-chevron-left fa-3x" id="return" aria-hidden="true" [routerLink]="['/menu-admin']"></i>
-    <h1 class="page-title">{{ titulo }}</h1>
+    <h1 class="page-title">Registro compra</h1>
   </div>
   <div class="page-main">
     <div class="page-section">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <h4><strong>Cliente: {{ cliente }}</strong></h4>
-          </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><b>Datos de la categoría y el cliente afiliado</b></h3>
+        </div>
+        <div class="color-panel-body panel-body">
           <div class="row">
-            <div class="col-md-7">
-              <div class="form-group">
-                <h4><strong>Lista de productos</strong></h4>
-                <textarea class="form-control" id="txtDecripcion" rows="10"></textarea>
+            <div class="col-sm-5">
+              <label class="col-lg-4 control-label"><h4><b><span style="color:#fff;">Escoja la categoría:</span></b></h4></label>
+              <div class="col-lg-5">
+                <select class="form-control" (change)="obtenerIdCategoria($event.target.value)">
+                  <option value="" selected>-- Seleccione una categoria --</option>
+                  <option *ngFor="let cat of categorias | async" [value]="cat.$key">{{ cat.nombre }}</option>
+                </select>
               </div>
             </div>
-            <div class="col-md-5">
-              <h4><strong>Detalle de compra</strong></h4> 
-              <div class="well">
-                <div class="form-group">
-                  <label>Id:</label>
-                </div>
-                <div class="form-group">
-                  <label>Fecha / Hora:</label>
-                </div>
-                <div class="form-group">
-                  <label>Lugar:</label>
-                </div>
-                <hr>
-                <div class="form-group">
-                  <label>Total:</label>
-                </div>
+
+            <div class="col-sm-5">
+              <label class="col-lg-4 control-label"><h4><b><span style="color:#fff;">Escoja al cliente:</span></b></h4></label>
+              <div class="col-lg-5">
+                <select class="form-control" (change)="obtenerIdCliente($event.target.value)">
+                  <option value="" selected>-- Seleccione un afiliado --</option>
+                  <option *ngFor="let afi of afiliados | async" [value]="afi.codigoQR">{{ afi.nombre }}</option>
+                </select>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col col-md-12" style="text-align: right;">
-              <button type="submit" class="btn btn-success">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i> Registrar comprar
-              </button>
-              <button class="btn btn-danger" [routerLink]="['/menu-admin']">
-                <i class="fa fa-ban" aria-hidden="true"></i> Cancelar
-              </button>
+
+            <div class="col-sm-2">
+              <label class="col-lg-4 control-label"><h4><b><span style="color:#fff;">Saldo:</span></b></h4></label>
+              <div class="col-lg-5">
+                <h4><b><span style="color:#fff;">${{ afiliado.saldo }}</span></b></h4>
+              </div>
             </div>
+
           </div>
         </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-6">
+          <h3><span style="color:#fff;"><b>Listado de productos</b></span></h3>
+          <table class="table table-hovered">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Agregar</th>
+            </thead>  
+            <tbody>
+              <tr *ngFor="let produc of productos | async | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td>{{ produc.nombre }}</td>
+                <td>${{ produc.precio }}</td>
+                <td>
+                  <button md-mini-fab class="mat-fab" (click)="openModalAgregarProducto(produc.$key, produc.nombre, produc.precio)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Pagination -->
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+        <div class="col-sm-6">
+          <h3><span style="color:#fff;"><b>Detalle de compra</b></span></h3>
+          <table class="table table-hovered">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+            </thead>  
+            <tbody>
+              <tr *ngFor="let producDet of listaProductosDetalle; let i = index">
+                <td>{{ producDet.nombre }}</td>
+                <td>${{ producDet.precio }}</td>
+                <td>{{ producDet.cantidad }}</td>
+              </tr>
+              <tr><td class="colot-tr-table">Total:</td><td class="colot-tr-table">${{ precioTotal | number : '1.2-2' }}</td><td class="colot-tr-table"></td></tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>    
   </div>
 </div>
+
+<modal #modalAgregarProducto>
+  <modal-header>
+    <h4 class="modal-title">Mensaje</h4>
+  </modal-header>
+
+  <modal-body class="form-horizontal">
+    <div class="form-group">
+      <label class="col-lg-2 control-label"><h5><b>Cantidad:</b></h5></label>
+      <div class="col-lg-9">
+        <input type="number" class="form-control" name="txtcantidad" placeholder="Ingrese la cantidad" [(ngModel)]="detalleCompra.cantidad" #cantidad="ngModel" required />
+        <span style="color:#e74c3c;" *ngIf="cantidad.errors?.required"><p>La cantidad es requerida.</p></span>
+      </div>
+    </div>
+  </modal-body>
+
+  <modal-footer>
+    <div *ngIf="cantidad.errors">
+      <button type="button" class="btn btn-primary col-lg-5" disabled><i class="fa fa-check" aria-hidden="true"></i> Confirmar</button>
+    </div>
+    <div *ngIf="!cantidad.errors">
+      <button type="button" class="btn btn-primary col-lg-5" data-dismiss="modal" (click)="agregarProductoDetalle()"><i class="fa fa-check" aria-hidden="true"></i> Confirmar</button>
+    </div>
+    <button type="button" style="width: 40%" class="btn btn-danger col-lg-5" (click)="modalAgregarProducto.close()"><span class="glyphicon glyphicon-remove"></span> Confirmar</button>
+  </modal-footer>
+</modal>

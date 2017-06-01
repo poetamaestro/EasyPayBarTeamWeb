@@ -36,7 +36,7 @@
     </div>
 
   </div>
-  <span class="app-action-md-fab"><button md-fab class="btn btn-success btn-md" (click)="openModalAfiliadoCrear()"><i class="fa fa-plus" aria-hidden="true"></i></button></span>
+  <span class="app-action-md-fab"><button md-fab class="mat-fab" (click)="openModalAfiliadoCrear()"><i class="fa fa-plus" aria-hidden="true"></i></button></span>
 </div>
 
 <modal #modalAfiliado>
@@ -46,8 +46,8 @@
 
   <modal-body>
     <ul class="list-group" style="padding-top: 5%">
-      <li class="list-group-item"><strong>Nombre:</strong> &nbsp;&nbsp; <kbd>{{afiliado.nombre}}</kbd></li>
-      <li class="list-group-item"><strong>Saldo Actual:</strong> &nbsp;&nbsp; <kbd>${{afiliado.saldo}}</kbd></li>
+      <li class="list-group-item"><strong>Nombre: </strong>{{afiliado.nombre}}</li>
+      <li class="list-group-item"><strong>Saldo Actual: </strong>${{afiliado.saldo}}</li>
 
       <li class="list-group-item"><strong>Saldo a Recargar:</strong> &nbsp;&nbsp; &nbsp;&nbsp;
 
@@ -72,7 +72,7 @@
   <modal-body>
     <div style="text-align: center;">
         <h3 >
-          Abonar <kbd> {{this.radioValue}} $ </kbd> &nbsp; al cliente/a &nbsp;"{{afiliado.nombre}}"<br>
+          Abonar ${{this.radioValue}} al cliente/a: "{{afiliado.nombre}}"<br>
         </h3>
     </div>
   </modal-body>

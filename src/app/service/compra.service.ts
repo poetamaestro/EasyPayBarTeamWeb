@@ -4,19 +4,18 @@ import { Compra } from './../typeScript/compra';
 
 @Injectable()
 export class CompraService {
+	
+	compra: Compra = new Compra();
+	compras: FirebaseListObservable<Compra[]>;
 
-compra : FirebaseListObservable<Compra[]>;
+	constructor(private db: AngularFireDatabase) { }
 
-  constructor(private db: AngularFireDatabase) {
-  	this.compra = db.list('/typeScript/compra');
-  }
+  	getCompras(idProveedor, idAfiliado): FirebaseListObservable<Compra[]> {
+  		return this.db.list('/proveedor/' + idProveedor + '/afiliados/' + idAfiliado);
+  	}
 
-  getCompras(): FirebaseListObservable<Compra[]>{
-  	return this.db.list('/typeScript/compra');
-  }
-
-  agregarCompra(nuevaCompra: Compra){
-  	this.compra.push(nuevaCompra);
-  }
+  	agregar(idProveedor, idAfiliado, nuevaCompra: Compra) {
+  		this.db.list('/proveedor/' + idProveedor + '/afiliados/' + idAfiliado).push(nuevaCompra);
+  	}
 
 }
