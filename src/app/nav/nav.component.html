@@ -17,7 +17,7 @@
         <li *ngIf="proveedor" class="nav-item" ><a routerLink="/recarga">Recarga</a></li>
         <li *ngIf="proveedor" class="nav-item" ><a routerLink="/compras">Compras</a></li>
         <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/proveedor', id, 'categoria']">Categoria</a></li>
-        
+        <li *ngIf="proveedor" class="nav-item" ><a href="" routerLink="/cargar" >Cargar Menu</a></li>
     <!-- Menu Administrador -->
         <li *ngIf="administrador" class="nav-item" ><a routerLink="/cliente">Cliente</a></li>
       </ul>
