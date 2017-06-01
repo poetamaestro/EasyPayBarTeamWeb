@@ -15,11 +15,13 @@ export class ProveedorService {
     this.proveedores = db.list('/proveedor');
   }
 
-  crear(nom: string, codQR: string, nombreBar: string): void {
+  crear(nom: string, codQR: string, nombreBar: string, imagenFile: File, URL: string): void {
     firebase.database().ref('proveedor/' + codQR).set({
       bar: nombreBar,
       codigoQR: codQR,
-      nombre: nom
+      nombre: nom,
+      imagen: 'proveedor/' + imagenFile.name,
+      imagenURL: URL
     });
   }
 
@@ -35,5 +37,4 @@ export class ProveedorService {
   remover(id: number) {
     this.db.object('/proveedor/' + id).remove();
   }
-// tslint:disable-next-line:eofline
 }
