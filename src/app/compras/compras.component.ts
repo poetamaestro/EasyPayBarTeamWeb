@@ -47,6 +47,7 @@ export class ComprasComponent implements OnInit {
     });
     this.getCategorias();
     this.getAfiliados();
+    this.afiliado.saldo = 0;
   }
 
   getProductos(): void {
@@ -67,7 +68,11 @@ export class ComprasComponent implements OnInit {
   }
 
   obtenerIdCliente(codQR: string) {
-    this.obtenerSaldoAfiliado(codQR);
+    if (codQR == '') {
+      this.afiliado.saldo = 0;
+    } else {
+      this.obtenerSaldoAfiliado(codQR);
+    }    
   }
 
   obtenerSaldoAfiliado(codQR) {

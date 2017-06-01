@@ -78,7 +78,7 @@
                 <th>Cantidad</th>
             </thead>  
             <tbody>
-              <tr *ngFor="let producDet of listaProductosDetalle; let i = index">
+              <tr *ngFor="let producDet of listaProductosDetalle">
                 <td>{{ producDet.nombre }}</td>
                 <td>${{ producDet.precio }}</td>
                 <td>{{ producDet.cantidad }}</td>
@@ -89,7 +89,14 @@
         </div>
 
       </div>
-    </div>    
+    </div>
+
+    <div class="row">
+      <div class="col-sm-9"></div>
+      <div class="col-sm-3">
+        <button type="button" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Comprar</button>
+      </div>
+    </div>
   </div>
 </div>
 
