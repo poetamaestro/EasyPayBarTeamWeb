@@ -93,7 +93,7 @@
 <!-- Modal Eliminar -->
 <modal #modalProductoEliminar>
   <modal-header [show-close]="false">
-    <h4 class="modal-title">¿Desea eliminar este producto?</h4>
+    <h4 class="modal-title">¿Desea Eliminar este Producto?</h4>
   </modal-header>
 
   <modal-body>
@@ -124,7 +124,7 @@
       <div class="col-lg-9">
         <input type="text" class="form-control" name="txtnombre" placeholder="Ingrese el nombre" [(ngModel)]="producto.nombre" #nombre="ngModel"
           required pattern="[A-Za-z ]+" />
-        <span style="color:#e74c3c;" *ngIf="nombre.errors?.required"><p>El nombre es un campo requerido.</p></span>
+        <span style="color:#e74c3c;" *ngIf="nombre.errors?.required"><p>El nombre es requerido.</p></span>
         <span style="color:#e74c3c;" *ngIf="nombre.errors?.pattern"><p>El nombre solo puede tener caracteres de A hasta la Z.</p></span>
       </div>
     </div>
