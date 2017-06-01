@@ -67,19 +67,19 @@ export class ComprasComponent implements OnInit {
     this.getProductos();
   }
 
-  obtenerIdCliente(codQR: string) {
-    if (codQR == '') {
+  obtenerIdCliente(key: string) {
+    if (key == '') {
       this.afiliado.saldo = 0;
     } else {
-      this.obtenerSaldoAfiliado(codQR);
+      this.obtenerSaldoAfiliado(key);
     }    
   }
 
-  obtenerSaldoAfiliado(codQR) {
+  obtenerSaldoAfiliado(key) {
     const queryObservable = this.db.list('/proveedor/' + this.idPro + '/afiliados', {
       query: {
-        orderByChild: 'codigoQR',
-        equalTo: codQR
+        orderByChild: 'key',
+        equalTo: key
       }
     });
 
