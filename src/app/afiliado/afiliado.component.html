@@ -57,8 +57,8 @@
 
       </li>
       <li class="list-group-item" style="text-align: center;">
-        <button style="width: 40%" type="button" class="btn btn-primary" (click)="modalVerificar.open(); modalAfiliado.close();"> <span class="glyphicon glyphicon-plus"></span> Recargar </button>
-        <button style="width: 40%" type="button" class="btn btn-danger " (click)="modal.close()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+        <button style="width: 40%" type="button" class="btn btn-primary" (click)="modalVerificar.open(); modalAfiliado.close();"> <i class="fa fa-check" aria-hidden="true"></i> Recargar </button>
+        <button style="width: 40%" type="button" class="btn btn-danger " (click)="modal.close()"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
       </li>
     </ul>
   </modal-body>
@@ -79,8 +79,8 @@
 
   <modal-footer>
     <div style="text-align: center;">
-      <button style="width: 40%" type="button" class="btn btn-primary" (click)="recargar()"><span class="glyphicon glyphicon-check"></span> Aceptar</button>
-      <button style="width: 40%" type="button" class="btn btn-danger" (click)="modalVerificar.close(); modalAfiliado.open();"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+      <button style="width: 40%" type="button" class="btn btn-primary" (click)="recargar()"><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
+      <button style="width: 40%" type="button" class="btn btn-danger" (click)="modalVerificar.close(); modalAfiliado.open();"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
     </div>
   </modal-footer>
 </modal>
@@ -115,7 +115,7 @@
         <input type="text" class="form-control text-primary" [value]="nombre" [(ngModel)]="nombre" placeholder="Ingrese el Cliente/a a Buscar">
       </div>
       <div class="col-md-4" >
-      <button  type="button" style="height: 75%; width: 30%;" class="btn btn-success col-lg-5" (click)="getClientes();" ><span class="glyphicon glyphicon-share"></span> </button>
+      <button  type="button" style="height: 75%; width: 30%;" class="btn btn-success col-lg-5" (click)="getClientes();" ><i class="fa fa-search" aria-hidden="true"></i> </button>
       </div>
     </div>
     <div class="row" >
@@ -131,7 +131,7 @@
           <td style="text-align: center">{{ cli.nombre }}</td>
 
           <td>
-            <button class="btn btn-sm btn-success" (click)="registrarAfiliados(cli.uid, cli.nombre, cli.codigoQR)"><span class="glyphicon glyphicon-plus"></span></button>
+            <button class="btn btn-sm btn-success" (click)="registrarAfiliados(cli.uid, cli.nombre, cli.codigoQR)"><i class="fa fa-plus" aria-hidden="true"></i></button>
           </td>
         </tr>
         </tbody>
@@ -140,7 +140,7 @@
   </modal-body>
 
   <modal-footer style="text-align: center;">
-    <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar </button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cancelar </button>
   </modal-footer>
 </modal>
 
@@ -157,7 +157,7 @@
   </modal-body>
 
   <modal-footer style="text-align: center;">
-    <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cerrar </button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar </button>
   </modal-footer>
 </modal>
 
