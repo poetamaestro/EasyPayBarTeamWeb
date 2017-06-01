@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Producto } from './../typeScript/producto';
 import { ProductoService } from '../service/producto.service';
-import { AngularFire, FirebaseListObservable} from 'angularfire2';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 // tslint:disable-next-line:import-blacklist
-import { Observable, Subject} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import * as firebase from 'firebase';
 
 interface Image {
@@ -58,8 +58,8 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-       this.idPro = params['id'];
-       this.idCat = params['idC'];
+      this.idPro = params['id'];
+      this.idCat = params['idC'];
     });
     this.getProductos();
   }
@@ -90,8 +90,8 @@ export class ProductoComponent implements OnInit {
   }
 
   seleccionarImagen(event: EventTarget) {
-    const eventObj: MSInputMethodContext = <MSInputMethodContext> event;
-    const target: HTMLInputElement = <HTMLInputElement> eventObj.target;
+    const eventObj: MSInputMethodContext = <MSInputMethodContext>event;
+    const target: HTMLInputElement = <HTMLInputElement>eventObj.target;
     this.file = target.files[0];
   }
 
@@ -100,42 +100,72 @@ export class ProductoComponent implements OnInit {
     const imageRef = storageRef.child('productos/' + imageFile.name);
     const uploadTask = imageRef.put(imageFile);
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      function(snapshot){
+      function (snapshot) {
         // Para evaluar progreso
-      }, function(error){
+      }, function (error) {
         console.log('Uh-oh, an error occurred!');
-      }, function(){
+      }, function () {
         console.log('Imagen subida con exito');
-    });
+      });
   }
 
   borrarImagen(imagenPath: string) {
     const storageRef = firebase.storage().ref();
     const imageRef = storageRef.child(imagenPath);
 
-    imageRef.delete().then(function() {
+    imageRef.delete().then(function () {
       console.log('File deleted successfully');
-    }).catch(function(error) {
+    }).catch(function (error) {
       console.log('Uh-oh, an error occurred!');
     });
   }
 
   agregarProducto() {
-    // Subir imagen
-    const storageRef = firebase.storage().ref();
-    const imageRef = storageRef.child('productos/' + this.file.name);
-    const pathRef = firebase.storage().ref('productos/' + this.file.name);
-    const uploadTask = imageRef.put(this.file);
+    // Subir producto con imagen default
+    if (this.file === undefined) {
+      const imagenPath = 'productos/producto_default.jpg';
+      const imagenURL = 'https://firebasestorage.googleapis.com/v0/b/easypaybar.appspot.com/o/' +
+        'productos%2Fproducto_default.jpg?alt=media&token=07c0c51e-b277-4c0a-b739-ce79af920ee6';
+      this.productoServicio.agregarProductoDefault(this.idPro, this.idCat, imagenPath, imagenURL, this.producto);
+    } else {  // Subir producto con imagen seleccionada
+      // Subir imagen
+      const storageRef = firebase.storage().ref();
+      const imageRef = storageRef.child('productos/' + this.file.name);
+      const pathRef = firebase.storage().ref('productos/' + this.file.name);
+      const uploadTask = imageRef.put(this.file);
 
-    uploadTask.then((snapshot) => {
-      pathRef.getDownloadURL().then(url => this.productoServicio.agregarProducto(this.idPro, this.idCat, this.file, url, this.producto)
-      );
-    });
+      uploadTask.then((snapshot) => {
+        pathRef.getDownloadURL().then(url => this.productoServicio.agregarProducto(this.idPro, this.idCat, this.file, url, this.producto)
+        );
+      });
+    }
   }
 
   actualizarProducto() {
-    // Borrar imagen actual
-    this.borrarImagen(this.producto.imagen);
+    // Si la imagen no es la default se borra la imagen del producto
+    if (this.producto.imagen !== 'productos/producto_default.jpg') {
+      this.borrarImagen(this.producto.imagen);
+    }
+
+    // Actualizar producto con imagen default
+    if (this.file === undefined) {
+      const imagenPath = 'productos/producto_default.jpg';
+      const imagenURL = 'https://firebasestorage.googleapis.com/v0/b/easypaybar.appspot.com/o/' +
+        'productos%2Fproducto_default.jpg?alt=media&token=07c0c51e-b277-4c0a-b739-ce79af920ee6';
+      this.productoServicio.actualizarProductoDefault(this.idPro, this.idCat, this.key, this.producto, imagenPath, imagenURL);
+    } else {  // Subir producto con imagen seleccionada
+      // Subir la nueva imagen
+      const storageRef = firebase.storage().ref();
+      const imageRef = storageRef.child('productos/' + this.file.name);
+      const pathRef = firebase.storage().ref('productos/' + this.file.name);
+      const uploadTask = imageRef.put(this.file);
+
+      uploadTask.then((snapshot) => {
+        pathRef.getDownloadURL().then(url =>
+          this.productoServicio.actualizarProducto(this.idPro, this.idCat, this.key, this.producto, this.file, url)
+        );
+      });
+    }
 
     // Subir la nueva imagen
     const storageRef = firebase.storage().ref();
@@ -151,7 +181,11 @@ export class ProductoComponent implements OnInit {
   }
 
   eliminarProducto() {
-    this.borrarImagen(this.producto.imagen);
+    // Si la imagen no es la default se borra la imagen del producto
+    if (this.producto.imagen !== 'productos/producto_default.jpg') {
+      this.borrarImagen(this.producto.imagen);
+    }
+    // Eliminar producto
     this.productoServicio.eliminarProducto(this.idPro, this.idCat, this.key);
     this.producto = new Producto();
   }

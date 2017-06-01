@@ -17,12 +17,25 @@ export class ProductoService {
     this.db.list('/proveedor/' + idPro + '/categoria/' + idCat + '/producto').push(nuevoProducto);
   }
 
+  agregarProductoDefault(idPro: string, idCat: string, imagenPath: string, URL: string, nuevoProducto: Producto) {
+    nuevoProducto.imagen = imagenPath;
+    nuevoProducto.imagenURL = URL;
+    nuevoProducto.veces = 0;
+    this.db.list('/proveedor/' + idPro + '/categoria/' + idCat + '/producto').push(nuevoProducto);
+  }
+
   eliminarProducto(idPro: string, idCat: string, idProd) {
     this.db.object('/proveedor/' + idPro + '/categoria/' + idCat + '/producto/' + idProd).remove();
   }
 
   actualizarProducto(idPro: string, idCat: string, idProd: string, producto: Producto, imagenFile: File, URL: string) {
     producto.imagen = 'productos/' + imagenFile.name;
+    producto.imagenURL = URL;
+    this.db.object('/proveedor/' + idPro + '/categoria/' + idCat + '/producto/' + idProd).update(producto);
+  }
+
+  actualizarProductoDefault(idPro: string, idCat: string, idProd: string, producto: Producto, imagenPath: string, URL: string) {
+    producto.imagen = imagenPath;
     producto.imagenURL = URL;
     this.db.object('/proveedor/' + idPro + '/categoria/' + idCat + '/producto/' + idProd).update(producto);
   }
