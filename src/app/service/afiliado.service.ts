@@ -5,24 +5,20 @@ import * as firebase from 'firebase';
 
 @Injectable()
 export class AfiliadoService {
-
-
-
-afiliados: FirebaseListObservable<Afiliado[]>;
-afiliado: Afiliado = new Afiliado();
-
+  
+  afiliados: FirebaseListObservable<Afiliado[]>;
+  afiliado: Afiliado = new Afiliado();
 
   constructor(private db: AngularFireDatabase) { }
 
-
-
-  getAfiliados( id): FirebaseListObservable<Afiliado[]> {
+  getAfiliados(id): FirebaseListObservable<Afiliado[]> {
     return this.db.list('/proveedor/' + id + '/afiliados');
   }
-  ActualizarSaldo(id: number , saldo: string , idAfiliado: number) {
-    const consultaAfiliadoId = this.db.object('/proveedor/' + id + '/afiliados/' + idAfiliado);
-    consultaAfiliadoId.update({ saldo: saldo });
+
+  actualizarSaldo(idProveedor: string, saldo: number, idAfiliado: string) {
+    this.db.object('/proveedor/' + idProveedor + '/afiliados/' + idAfiliado).update({ saldo: saldo });
   }
+
   agregarAfiliado(nuevoAfiliado: Afiliado, id) {
     firebase.database().ref('/proveedor/' + id + '/afiliados/' + nuevoAfiliado.codigoQR).set({
       fechaAfiliacion: nuevoAfiliado.fechaAfiliacion,
@@ -30,6 +26,5 @@ afiliado: Afiliado = new Afiliado();
       nombre: nuevoAfiliado.nombre,
       saldo: nuevoAfiliado.saldo,
     });
-
   }
 }

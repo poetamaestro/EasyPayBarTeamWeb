@@ -1,10 +1,11 @@
 import { Producto } from './producto';
 
 export class DetalleCompra {
-	key: number;
+	keyPro: string;
+	keyCat: string;
 	cantidad: number;
 	precio: number;
-	productos: Array<Producto>;
+	productos: string;
 
 	constructor() { }
 }

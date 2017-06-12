@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { QrScannerModule } from 'angular2-qrscanner';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { CollapseDirective } from 'ng2-bootstrap';
@@ -31,7 +33,7 @@ import { NavProveedorComponent } from './nav-proveedor/nav-proveedor.component';
 import { MenuProveedorComponent } from './menu-proveedor/menu-proveedor.component';
 import { NavConsumidorComponent } from './nav-consumidor/nav-consumidor.component';
 import { AfiliadoComponent } from './afiliado/afiliado.component';
-import { MdButtonModule } from '@angular/material';
+import { MdButtonModule, MdAutocompleteModule, MdOptionModule } from '@angular/material';
 import 'hammerjs';
 
 @NgModule({
@@ -65,16 +67,23 @@ import 'hammerjs';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule, 
+    NoopAnimationsModule,
     HttpModule,
+    QrScannerModule,
     Ng2Bs3ModalModule,
     Ng2PaginationModule,
     MdButtonModule,
+    MdAutocompleteModule,
+    MdOptionModule,
     NgbModule.forRoot(),
     routes,
     AngularFireModule.initializeApp(firebaseConfig),
     DropdownModule.forRoot(),
     Angular2FontAwesomeModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
 })

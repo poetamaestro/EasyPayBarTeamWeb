@@ -4,6 +4,7 @@ import { Producto } from './../typeScript/producto';
 
 @Injectable()
 export class ProductoService {
+
   constructor(private db: AngularFireDatabase) { }
 
   getProductos(idPro: string, idCat: string): FirebaseListObservable<Producto[]> {
@@ -38,5 +39,9 @@ export class ProductoService {
     producto.imagen = imagenPath;
     producto.imagenURL = URL;
     this.db.object('/proveedor/' + idPro + '/categoria/' + idCat + '/producto/' + idProd).update(producto);
+  }
+
+  actualizarVecesCompradas(idPro: string, idCat: string, idProd: string, veces: number) {
+    this.db.object('/proveedor/' + idPro + '/categoria/' + idCat + '/producto/' + idProd).update({ veces: veces });
   }
 }
