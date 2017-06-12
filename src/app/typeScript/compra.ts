@@ -1,13 +1,10 @@
 import { DetalleCompra } from "./detalleCompra";
 
 export class Compra {
-	
-	key: number;
+	key: string;
 	detalleCompra: Array<DetalleCompra>;
-	fecha_Compra: Date;
+	fecha_Compra: string;
 	total: number;
 	
-	constructor(){
-		this.key = 0;
-	}
+	constructor() { }
 }

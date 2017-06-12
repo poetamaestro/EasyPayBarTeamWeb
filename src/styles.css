@@ -700,3 +700,55 @@ i#return:hover {
   background-color: #0d5a90;
   color: #fff;
 }
+
+.mat-option {
+  color: rgba(0,0,0,.87);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  line-height: 48px;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-family: Roboto,Helvetica Neue,sans-serif;
+  text-align: left;
+  text-decoration: none;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+}
+
+.mat-autocomplete-panel, .mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active) {
+  background: #fff;
+  color: rgba(0,0,0,.87);
+}
+
+.cdk-overlay-backdrop, .cdk-overlay-pane {
+  position: absolute;
+  pointer-events: auto;
+  z-index: 1000;
+}
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.mat-option:focus:not(.mat-option-disabled), .mat-option:hover:not(.mat-option-disabled) {
+  background: #0d5a90;
+  color: #fff;
+}
+
+.mat-option.mat-active, .mat-option.mat-selected:not(.mat-option-multiple) {
+  background: #0d5a90;
+  color: #fff;
+}
+
+#v {
+  width: 570px;
+  height: 400px;
+}

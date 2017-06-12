@@ -76,7 +76,7 @@ export class AfiliadoComponent implements OnInit {
     this.modal.close();
     this.recarga.valor = parseInt(this.radioValue);
     var saldo = this.afiliado.saldo + parseInt(this.radioValue);
-    this.afiliadoService.ActualizarSaldo(this.id, saldo + '', this.key);
+    this.afiliadoService.actualizarSaldo(this.id, saldo, this.key);
     this.recarga.fecha_Recarga =  this.date.transform(new Date(), 'dd/MM/yyyy');
     this.recargaService.agregarRecarga( this.recarga, this.id, this.key);
     this.modalRecargaExitosa.open();
@@ -86,18 +86,18 @@ export class AfiliadoComponent implements OnInit {
     this.clientes = this.clienteServicio.getCliente(this.nombre);
   }
 
-  registrarAfiliados(id: string, nombre: string, codQR: string) {
+  registrarAfiliados(id: string, nombre: string, key: string) {
     const queryObservable = this.db.list('/proveedor/' + this.id + '/afiliados', {
       query: {
-        orderByChild: 'codigoQR',
-        equalTo: codQR
+        orderByChild: 'key',
+        equalTo: key
       }
     }).first();
 
     queryObservable.subscribe(queriedItems => {
       if(queriedItems.length == 0) {
         this.nuevoAfiliado.nombre = nombre;
-        this.nuevoAfiliado.codigoQR = codQR;
+        this.nuevoAfiliado.codigoQR = key;
         this.nuevoAfiliado.fechaAfiliacion = this.date.transform(new Date(), 'dd/MM/yyyy');
         this.nuevoAfiliado.saldo = 0;
         this.afiliadoService.agregarAfiliado(this.nuevoAfiliado, this.id);
