@@ -34,7 +34,12 @@
               <div class="input-group search-bar" style="width: 40%; margin-left: 20px;">
                 <input type="text" class="form-control" placeholder="Ingrese el cliente" [value]="afiliado.nombre" [(ngModel)]="afiliado.nombre" disabled>
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" (click)="modalClienteQR.open()"><i class="fa fa-search" aria-hidden="true"></i></button>
+                  <div *ngIf="afiliado.nombre == ''">
+                    <button class="btn btn-primary" (click)="modalClienteQR.open()"><i class="fa fa-search" aria-hidden="true"></i></button>
+                  </div>
+                  <div *ngIf="afiliado.nombre != ''">
+                    <button class="btn btn-primary" disabled><i class="fa fa-search" aria-hidden="true"></i></button>
+                  </div>
                 </span>
               </div>
             </div>
