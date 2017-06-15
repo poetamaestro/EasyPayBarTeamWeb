@@ -1,13 +1,14 @@
 <app-nav-proveedor></app-nav-proveedor>
 <div class="component-container">
   <div class="page-head">
-    <h1 class="page-title">Funciones de Proveedor</h1>
+    <h1 class="page-title">Funciones del Proveedor</h1>
   </div>
   <div class="page-main">
     <div class="page-section">
-      <div class="row">
+      <div class="row ">
+
         <!--Gestionar Categoria-->
-        <div class="col col-md-3">
+        <div *ngIf="proveedor" class="col col-md-3">
           <div class="function-panel main-color-orange">
             <div class="function-body">
               <div class="row">
@@ -28,7 +29,7 @@
         </div>
 
         <!--Gestionar afiliados-->
-        <div class="col col-md-3">
+        <div *ngIf="proveedor" class="col col-md-3">
           <div class="function-panel main-color-black">
             <div class="function-body">
               <div class="row">
@@ -49,7 +50,7 @@
         </div>
         
         <!--Registrar Compra-->
-        <div class="col col-md-3">
+        <div *ngIf="proveedor" class="col col-md-3">
           <div class="function-panel main-color-black">
             <div class="function-body">
               <div class="row">
