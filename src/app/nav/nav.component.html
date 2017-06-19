@@ -9,17 +9,19 @@
           <i class="fa fa-bars" aria-hidden="true"></i>
       </button>
     </div>
+
     <div id="navcol-1" class="navbar-collapse collapse" [collapse]="isCollapsed">
       <ul class="nav navbar-nav">
 
     <!-- Menu Proveedor -->
 
-        <li *ngIf="proveedor" class="nav-item" ><a routerLink="/recarga">Recarga</a></li>
+<!--   
+     <li *ngIf="proveedor" class="nav-item" ><a routerLink="/recarga">Recarga</a></li>
         <li *ngIf="proveedor" class="nav-item" ><a routerLink="/compras">Compras</a></li>
         <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/proveedor', id, 'categoria']">Categoria</a></li>
-        
+    -->
     <!-- Menu Administrador -->
-        <li *ngIf="administrador" class="nav-item" ><a routerLink="/cliente">Cliente</a></li>
+        <li *ngIf="administrador" class="nav-item" ><a routerLink="/cliente">Clientes</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item dropdown" dropdown>
@@ -28,6 +30,12 @@
           </a>
           <ul class="dropdown-menu" role="menu" dropdownMenu aria-labelledby="navDropdownUser">
             <li role="menuitem"><a href="" (click)="a_logout()">Cerrar sesión</a></li>
+            <li>Funciones Usuario</li>
+            <ol>
+              <li *ngIf="administrador" role="menuitem"><a routerLink="/menu-admin"><font size=1>Función Administrador</font></a></li>
+
+              <li *ngIf="proveedor" role="menuitem"><a routerLink="/menu-proveedor"><font size=1>Función Proveedor</font></a></li>
+               </ol>
           </ul>
         </li>
       </ul>
