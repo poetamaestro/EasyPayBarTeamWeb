@@ -93,3 +93,7 @@ import 'hammerjs';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+//clave internet 
+// v%|iS%m%NGo7
