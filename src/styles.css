@@ -682,7 +682,7 @@ i#return:hover {
 .app-action-md-fab {
   display: inline-block;
   position: fixed;
-  bottom: 50px;
+  bottom: 650px;
   right: 50px;
 }
 

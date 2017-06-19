@@ -5,14 +5,13 @@ import { DetalleCompra } from './../typeScript/detalleCompra';
 @Injectable()
 export class DetalleCompraService {
 
-detalleCompra : FirebaseListObservable<DetalleCompra[]>;
+  detalleCompra : FirebaseListObservable<DetalleCompra[]>;
 
-  constructor(private db: AngularFireDatabase) {
-  	this.detalleCompra = db.list('/typeScript/detalleCompra');
-  }
+  constructor(private db: AngularFireDatabase) { }
 
-  getDetalleCompras(): FirebaseListObservable<DetalleCompra[]>{
-  	return this.db.list('/typeScript/detalleCompra');
+  getDetalleCompras(idProveedor, idAfiliado, idCompra, idDetalle): FirebaseListObservable<DetalleCompra[]> {
+  	return this.db.list('/proveedor/' + idProveedor + '/afiliados/' + idAfiliado + '/compras/'
+  		+ idCompra + '/detalleCompra/' + idDetalle);
   }
 
   agregarDetalleCompra(nuevoDetalleCompra: DetalleCompra){
