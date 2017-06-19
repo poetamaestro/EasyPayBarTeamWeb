@@ -20,6 +20,7 @@ import { ClienteComponent } from './cliente/cliente.component';
 import { ProductoComponent} from './producto/producto.component';
 import { MenuProveedorComponent } from './menu-proveedor/menu-proveedor.component';
 import { AfiliadoComponent } from './afiliado/afiliado.component';
+import { DetalleCompraComponent } from './detalle-compra/detalle-compra.component';
 
 export const router: Routes = [
   { path: '', redirectTo: 'menu-admin', pathMatch: 'full' },
@@ -28,8 +29,8 @@ export const router: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login-email', component: EmailComponent },
   { path: 'cargar', component: CargarMenuComponent },
-  { path: 'compras/:id', component: ComprasComponent, canActivate: [AuthGuard] },
-  { path: 'proveedor', component: ProveedorComponent },
+  { path: 'proveedor/:id/afiliado/:idAfiliado/compra/:idCompra/detalle', component: DetalleCompraComponent, canActivate: [AuthGuard] },
+  { path: 'proveedor/:id/compras', component: ComprasComponent, canActivate: [AuthGuard] },
   { path: 'recarga/:id', component: RecargaComponent },
   { path: 'menu-admin', component: MenuAdminComponent, canActivate: [AuthGuard] },
   { path: 'proveedor', component: ProveedorComponent },
@@ -40,7 +41,6 @@ export const router: Routes = [
   { path: 'proveedor/:id/categoria/:idC/producto', component: ProductoComponent, canActivate: [AuthGuard] },
   { path: 'menu-proveedor', component: MenuProveedorComponent, canActivate: [AuthGuard] },
   { path: 'afiliado/:id', component: AfiliadoComponent, canActivate: [AuthGuard] }
-
 ]
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);

@@ -1,0 +1,58 @@
+<app-nav-proveedor></app-nav-proveedor>
+
+<div class="component-container">
+  <div class="page-head">
+    <i class="fa fa-chevron-left fa-3x" id="return" aria-hidden="true" [routerLink]="['/menu-proveedor']"></i>
+    <h1 class="page-title">Detalle de la compra del cliente: {{ afiliado.nombre }}</h1>
+  </div>
+  <div class="page-main">
+    <div class="page-section">
+    	<div class="panel panel-primary">
+        	<div class="panel-heading">
+          		<h3 class="panel-title"><b>Datos de la compra</b></h3>
+        	</div>
+        	
+        	<div class="color-panel-body panel-body">
+          		<div class="row">
+          			<div class="col-sm-6">
+              			<label class="col-lg-4 control-label"><h4><b><span style="color:#fff;">Fecha: {{ compra.fecha_Compra }}</span></b></h4></label>            
+            		</div>
+
+		            <div class="col-sm-6">
+		            	<label class="col-lg-4 control-label"><h4><b><span style="color:#fff;">Saldo: ${{ afiliado.saldo | number : '1.2-2' }}</span></b></h4></label>
+		            </div>
+
+          		</div>
+        	</div>
+      	</div>
+
+      	<h3><span style="color:#fff;"><b>Listado de los productos comprados</b></span></h3>
+          <table class="table table-hovered">
+            <thead>
+              <tr>
+                <th>Categoría</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detalleCompra of listaDetalleCompra | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td>{{ detalleCompra.categoria }}</td>
+                <td>{{ detalleCompra.producto }}</td>
+                <td>{{ detalleCompra.cantidad }}</td>
+                <td>${{ detalleCompra.precio }}</td>
+                <td>${{ detalleCompra.cantidad * detalleCompra.precio | number : '1.2-2' }}</td>
+              </tr>
+              <tr><td class="colot-tr-table">Total de la compra:</td><td class="colot-tr-table"></td><td class="colot-tr-table"></td><td class="colot-tr-table"></td><td class="colot-tr-table">${{ compra.total | number : '1.2-2' }}</td></tr>
+            </tbody>
+          </table>
+          
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+    </div>
+  </div>
+
+  <span class="app-action-md-fab"><button md-fab class="mat-fab" [routerLink]="['/proveedor', idProveedor, 'compras']"><i class="fa fa-plus" aria-hidden="true"></i></button></span>
+</div>

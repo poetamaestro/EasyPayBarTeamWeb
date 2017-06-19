@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QrScannerModule } from 'angular2-qrscanner';
+import { Ng2TableModule } from 'ng2-table';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Ng2PaginationModule } from 'ng2-pagination';
@@ -22,6 +23,7 @@ import { SignupComponent } from './signup/signup.component';
 import { AuthGuard } from './auth.service';
 import { routes } from './app.routes';
 import { CargarMenuComponent } from './cargar-menu/cargar-menu.component';
+import { DetalleCompraComponent } from './detalle-compra/detalle-compra.component';
 import { ProveedorComponent } from './proveedor/proveedor.component';
 import { RecargaComponent } from './recarga/recarga.component';
 import { ComprasComponent } from './compras/compras.component';
@@ -41,7 +43,7 @@ import 'hammerjs';
     AppComponent,
     NavComponent,
     MenuComponent,
-
+    DetalleCompraComponent,
     LoginComponent,
     EmailComponent,
     SignupComponent,
@@ -72,6 +74,7 @@ import 'hammerjs';
     NoopAnimationsModule,
     HttpModule,
     QrScannerModule,
+    Ng2TableModule,
     Ng2Bs3ModalModule,
     Ng2PaginationModule,
     MdButtonModule,

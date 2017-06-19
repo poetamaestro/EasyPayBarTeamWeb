@@ -11,13 +11,8 @@ export class CompraService {
 
   constructor(private db: AngularFireDatabase) { }
 
-    getCompras(idProveedor, idAfiliado): FirebaseListObservable<Compra[]> {
-      return this.db.list('/proveedor/' + idProveedor + '/afiliados/' + idAfiliado + '/compras');
-    }
-
-    agregar(idProveedor, idAfiliado, detalle: Array<DetalleCompra>, nuevaCompra: Compra) {
-      nuevaCompra.detalleCompra = detalle;
-      this.db.list('/proveedor/' + idProveedor + '/afiliados/' + idAfiliado + '/compras').push(nuevaCompra);
-    }
+  getCompras(idProveedor, idAfiliado): FirebaseListObservable<Compra[]> {
+    return this.db.list('/proveedor/' + idProveedor + '/afiliados/' + idAfiliado + '/compras');
+  }
 
 }
