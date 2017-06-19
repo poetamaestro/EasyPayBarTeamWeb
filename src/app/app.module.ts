@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QrScannerModule } from 'angular2-qrscanner';
 import { Ng2TableModule } from 'ng2-table';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ResponsiveModule } from 'ng2-responsive';
 
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { CollapseDirective } from 'ng2-bootstrap';
@@ -84,6 +85,7 @@ import 'hammerjs';
     routes,
     AngularFireModule.initializeApp(firebaseConfig),
     DropdownModule.forRoot(),
+     ResponsiveModule,
     Angular2FontAwesomeModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -91,3 +93,7 @@ import 'hammerjs';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+//clave internet 
+// v%|iS%m%NGo7
