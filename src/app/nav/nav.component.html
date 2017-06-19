@@ -29,13 +29,12 @@
             <img src='{{ pictureUrl }}' class="nav-img-user img-responsive" alt="Profile_picture">{{ user.auth.displayName }}
           </a>
           <ul class="dropdown-menu" role="menu" dropdownMenu aria-labelledby="navDropdownUser">
+            <li role="menuitem"><a>Funciones del usuario</a></li>
+            <li class="divider"></li>
+            <li *ngIf="administrador" role="menuitem"><a routerLink="/menu-admin">Función Administrador</a></li>
+            <li *ngIf="proveedor" role="menuitem"><a routerLink="/menu-proveedor">Función Proveedor</a></li>
+            <li class="divider"></li>
             <li role="menuitem"><a href="" (click)="a_logout()">Cerrar sesión</a></li>
-            <li>Funciones Usuario</li>
-            <ol>
-              <li *ngIf="administrador" role="menuitem"><a routerLink="/menu-admin"><font size=1>Función Administrador</font></a></li>
-
-              <li *ngIf="proveedor" role="menuitem"><a routerLink="/menu-proveedor"><font size=1>Función Proveedor</font></a></li>
-               </ol>
           </ul>
         </li>
       </ul>
