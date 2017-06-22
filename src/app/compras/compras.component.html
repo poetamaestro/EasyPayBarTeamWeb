@@ -2,8 +2,16 @@
 
 <div class="component-container">
   <div class="page-head">
-    <i class="fa fa-chevron-left fa-3x" id="return" aria-hidden="true" [routerLink]="['/menu-proveedor']"></i>
-    <h1 class="page-title">Registro compra</h1>
+    <div class="row">
+      <div class="col-sm-11">
+        <i class="fa fa-chevron-left fa-3x" id="return" aria-hidden="true" [routerLink]="['/menu-proveedor']"></i>
+        <h1 class="page-title">Registro compra</h1>
+      </div>
+      <div class="col-sm-1">
+        <button md-fab class="mat-fab" (click)="realizarCompra()"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+      </div>
+    </div>
+    
   </div>
   <div class="page-main">
     <div class="page-section">
@@ -61,7 +69,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let row of rows | paginate: { itemsPerPage: 5, currentPage: p }">
+              <tr *ngFor="let row of rows | paginate: { itemsPerPage: 5, currentPage: p, id: 'listaProductos' }">
                 <td *ngFor="let column of columns">
                   {{ getData(row, column) }}
               </td>
@@ -73,7 +81,7 @@
             </tbody>
           </table>
           
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <pagination-controls (pageChange)="p = $event" id="listaProductos"></pagination-controls>
           
         </div>
 
@@ -95,7 +103,7 @@
                 <th>Eliminar</th>
             </thead>  
             <tbody>
-              <tr *ngFor="let producDet of listaProductosDetalle; let in = index ">
+              <tr *ngFor="let producDet of listaProductosDetalle | paginate: { itemsPerPage: 4, currentPage: page, id: 'listaProductosDetalle' } ; let in = index ">
                 <td>{{ producDet.categoria }}</td>
                 <td>{{ producDet.producto }}</td>
                 <td>${{ producDet.precio }}</td>
@@ -107,15 +115,14 @@
                   <button class="btn btn-xs btn-danger" (click)="abrirModalEliminarDetalle(producDet.keyPro, producDet.producto, producDet.precio, producDet.cantidad)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                 </td>
               </tr>
-              <tr><td class="colot-tr-table">Total de la compra:</td><td class="colot-tr-table"></td><td class="colot-tr-table"></td><td class="colot-tr-table"></td><td class="colot-tr-table"></td><td class="colot-tr-table">${{ compra.total | number : '1.2-2' }}</td></tr>
+              <tr><td class="colot-tr-table">Total de la compra:</td><td class="colot-tr-table"></td><td class="colot-tr-table"></td><td class="colot-tr-table"></td><td class="colot-tr-table">${{ compra.total | number : '1.2-2' }}</td><td class="colot-tr-table"></td></tr>
             </tbody>
           </table>
+          <pagination-controls (pageChange)="page = $event" id="listaProductosDetalle"></pagination-controls>
         </div>
 
       </div>
     </div>
-
-    <span class="app-action-md-fab"><button md-fab class="mat-fab" (click)="realizarCompra()"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button></span>
   </div>
 </div>
 
