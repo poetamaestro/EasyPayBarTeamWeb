@@ -7,14 +7,17 @@
         <i class="fa fa-chevron-left fa-3x" id="return" aria-hidden="true" [routerLink]="['/proveedor', idPro, 'categoria']"></i>
         <h1 class="page-title">{{ titulo }}</h1>
       </div>
-      <div class="col-sm-9"><br>
+      <div class="col-sm-8"><br>
         <div class="input-group search-bar" style="width: 40%; margin-left: 20px;">
           <input type="text" class="form-control text-primary" [(ngModel)]="pista" placeholder="Ingrese el producto a buscar">
           <span class="input-group-btn">
-          <button class="btn btn-success" (click)="buscarProducto()" type="button">Buscar <i class="fa fa-search-plus" aria-hidden="true"></i></button>
+          <button class="btn btn-info" (click)="buscarProducto()" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
           </span>
           <div class="alert-danger"><strong>{{ resultado }}</strong></div>
         </div>
+      </div>
+      <div class="col-sm-1">
+        <button md-fab class="mat-fab" (click)="openModalProductoCrear()"><i class="fa fa-plus" aria-hidden="true"></i></button>
       </div>
     </div>
 
@@ -48,7 +51,6 @@
       </div>
     </div>
   </div>
-  <span class="app-action-md-fab"><button md-fab class="mat-fab" (click)="openModalProductoCrear()"><i class="fa fa-plus" aria-hidden="true"></i></button></span>
 </div>
 
 
