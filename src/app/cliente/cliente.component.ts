@@ -39,8 +39,18 @@ export class ClienteComponent implements OnInit {
   // Variable para gestionar proveedor
   proveedor: Proveedor = new Proveedor();
 
-  constructor(private clienteServicio: ClienteService, private proveedorServicio: ProveedorService,
-    private db: AngularFireDatabase) { }
+  datosCargados: boolean;
+
+  constructor(private clienteServicio: ClienteService, private proveedorServicio: ProveedorService, 
+    private db: AngularFireDatabase) {
+    this.datosCargados = true;
+
+    this.clientes = this.clienteServicio.getClientes();
+
+    this.clientes.subscribe(data => {
+        this.datosCargados = false;
+    });
+  }
 
   getClientes(): void {
     this.clientes = this.clienteServicio.getClientes();

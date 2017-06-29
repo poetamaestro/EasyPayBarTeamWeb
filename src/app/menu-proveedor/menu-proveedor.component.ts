@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //import { Router } from '@angular/router';
 //import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
-import { Router , RouterLink} from '@angular/router';
+import { Router, RouterLink} from '@angular/router';
 import { AngularFire} from 'angularfire2';
 @Component({
   selector: 'app-menu-proveedor',
@@ -18,37 +18,43 @@ export class MenuProveedorComponent implements OnInit {
   //pictureUrl : any;
   //isLogin : boolean = false;
   id: string;
+  datosCargados: boolean;
 
   constructor(public af: AngularFire,private router: Router) {
     //if(router.url == '/login') {
       //this.isLogin = true;
-
+    this.datosCargados = true;
 
     this.af.auth.subscribe(auth => {
       if (auth) {
-
         this.filtro(af, auth);
-
       }
     });
   }
 
   ngOnInit() {
   }
-  filtro(af , auth) {
 
+  iniciarMenus(proveedor: boolean, administrador: boolean) {
+    this.datosCargados = false;
+    if (!proveedor && administrador) {
+      this.router.navigateByUrl('/menu-admin');
+    }
+  }
 
-const queryObservable = af.database.list('/cliente', {
+  filtro(af, auth) {
+    const queryObservable = af.database.list('/cliente', {
       query: {
         orderByChild: 'codigoQR',
         equalTo: auth.uid
       }
     });
 
-// subscribe to changes
+    // subscribe to changes
     queryObservable.subscribe(queriedItems => {
       this.administrador =  queriedItems[0].admin;
       this.proveedor = queriedItems[0].proveedor;
+      this.iniciarMenus(queriedItems[0].proveedor, queriedItems[0].admin);
     });
 
     const queryObservableProveedor = af.database.list('/proveedor', {
@@ -100,8 +106,5 @@ const queryObservable = af.database.list('/cliente', {
     });
   }
 
-  ngOnInit() {
-
-  }
 */
 }

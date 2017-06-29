@@ -15,32 +15,31 @@
   </div>
   <div class="page-main">
     <div class="page-section">
-      <div class="row">
-        <table class="table table-hovered">
-          <thead>
+      <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
+
+      <table class="table table-hovered" *ngIf="!datosCargados">
+        <thead>
           <tr>
             <th>Nombre</th>
             <th>Afiliaci&oacute;n</th>
             <th>Saldo</th>
             <th style="width: 10%; text-align: center;">Recarga</th>
           </tr>
-          </thead>
-          <tbody>
+        </thead>
+        <tbody>
           <tr *ngFor="let afl of afiliados | async | paginate: { itemsPerPage: 10, currentPage: p }">
             <td>{{ afl.nombre }}</td>
             <td>{{ afl.fechaAfiliacion }}</td>
             <td>{{ afl.saldo | number : '1.2-2' }}</td>
             <td style="width: 10%;">
-   <button class="btn btn-primary "  (click)="openModalAfiliado(afl.$key, afl.nombre, afl.saldo)" > <i class="fa fa-plus" aria-hidden="true"></i> </button>
+              <button class="btn btn-primary" (click)="openModalAfiliado(afl.$key, afl.nombre, afl.saldo)" > <i class="fa fa-plus" aria-hidden="true"></i> </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-      </td>
-
-    </tr>
-    </tbody>
-  </table>
-  <!-- Pagination -->
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </div>
+      <!-- Pagination -->
+      <pagination-controls *ngIf="!datosCargados" (pageChange)="p = $event"></pagination-controls>
     </div>
 
   </div>
@@ -54,7 +53,7 @@
   <modal-body>
     <ul class="list-group" style="padding-top: 5%">
       <li class="list-group-item"><strong>Nombre: </strong>{{afiliado.nombre}}</li>
-      <li class="list-group-item"><strong>Saldo Actual: </strong>${{afiliado.saldo}}</li>
+      <li class="list-group-item"><strong>Saldo Actual: </strong>${{afiliado.saldo | number : '1.2-2'}}</li>
 
       <li class="list-group-item"><strong>Saldo a Recargar:</strong> &nbsp;&nbsp; &nbsp;&nbsp;
 
@@ -158,9 +157,15 @@
 
   <modal-body>
     <div class="form-group">
-      <h5>Este cliente ya esta registrado como Afiliado.</h5>
+      <div class="row">
+        <div class="col-sm-1">
+          <i class="fa fa-exclamation-triangle fa-3x" style="color: #d9534f;" aria-hidden="true"></i>
+        </div>
+        <div class="col-sm-11">
+          <h5>Este cliente ya esta registrado como afiliado.</h5>
+        </div>
+      </div>  
     </div>
-       
   </modal-body>
 
   <modal-footer style="text-align: center;">

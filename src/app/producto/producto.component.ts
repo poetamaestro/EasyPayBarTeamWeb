@@ -52,8 +52,16 @@ export class ProductoComponent implements OnInit {
   pista = '';
   producto: Producto = new Producto();
   productos: FirebaseListObservable<Producto[]>;
+  datosCargados: boolean;
 
   constructor(private productoServicio: ProductoService, public af: AngularFire, private route: ActivatedRoute) {
+    this.datosCargados = true;
+
+    this.productos = this.productoServicio.getProductos(this.idPro, this.idCat);
+
+    this.productos.subscribe(data => {
+        this.datosCargados = false;
+    });
   }
 
   ngOnInit() {

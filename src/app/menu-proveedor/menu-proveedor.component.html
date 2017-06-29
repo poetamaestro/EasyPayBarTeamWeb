@@ -6,9 +6,10 @@
   <div class="page-main">
     <div class="page-section">
       <div class="row ">
+        <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
 
         <!--Gestionar Categoria-->
-        <div *ngIf="proveedor" class="col col-md-3">
+        <div *ngIf="proveedor && !datosCargados" class="col col-md-3">
           <div class="function-panel main-color-orange">
             <div class="function-body">
               <div class="row">
@@ -29,7 +30,7 @@
         </div>
 
         <!--Gestionar afiliados-->
-        <div *ngIf="proveedor" class="col col-md-3">
+        <div *ngIf="proveedor && !datosCargados" class="col col-md-3">
           <div class="function-panel main-color-black">
             <div class="function-body">
               <div class="row">
@@ -50,7 +51,7 @@
         </div>
         
         <!--Registrar Compra-->
-        <div *ngIf="proveedor" class="col col-md-3">
+        <div *ngIf="proveedor && !datosCargados" class="col col-md-3">
           <div class="function-panel main-color-black">
             <div class="function-body">
               <div class="row">
