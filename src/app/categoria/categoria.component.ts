@@ -32,7 +32,17 @@ export class CategoriaComponent implements OnInit, OnDestroy {
   categoria: Categoria = new Categoria();
   categorias: FirebaseListObservable<Categoria[]>;
 
-  constructor(private categoriaServicio: CategoriaService, private route: ActivatedRoute, public af: AngularFire) { }
+  datosCargados: boolean;
+
+  constructor(private categoriaServicio: CategoriaService, private route: ActivatedRoute, public af: AngularFire) {
+    this.datosCargados = true;
+
+    this.categorias = this.categoriaServicio.getCategorias(this.id);
+
+    this.categorias.subscribe(data => {
+        this.datosCargados = false;
+    });
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {

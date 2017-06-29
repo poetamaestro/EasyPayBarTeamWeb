@@ -7,7 +7,9 @@
 	<div class="page-main">
 		<div class="page-section">
 			<div class="row">
-				<table class="table table-hovered">
+				<i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
+
+				<table class="table table-hovered" *ngIf="!datosCargados">
 					<thead>
 						<tr>
 							<th>Nombre</th>
@@ -33,7 +35,7 @@
 					</tbody>
 				</table>
 				<!-- Pagination -->
-				<pagination-controls (pageChange)="p = $event"></pagination-controls>
+				<pagination-controls *ngIf="!datosCargados" (pageChange)="p = $event"></pagination-controls>
 			</div>
 		</div>
 	</div>

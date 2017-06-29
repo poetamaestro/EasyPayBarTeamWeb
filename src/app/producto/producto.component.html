@@ -25,8 +25,10 @@
   <div class="page-main">
     <div class="page-section">
       <div class="row">
+        <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
+
         <div class="col col-md-3" *ngFor="let produc of productos | async | paginate: { itemsPerPage: 8, currentPage: p }">
-          <div class="product-panel main-color-black">
+          <div class="product-panel main-color-black" *ngIf="!datosCargados">
             <div class="product-img">
               <img src="{{produc.imagenURL}}" alt="Cinque Terre">
             </div>
@@ -47,7 +49,7 @@
       </div>
       <div class="row">
         <!-- Pagination -->
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <pagination-controls *ngIf="!datosCargados" (pageChange)="p = $event"></pagination-controls>
       </div>
     </div>
   </div>

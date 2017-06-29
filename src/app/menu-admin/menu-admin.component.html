@@ -6,9 +6,10 @@
   <div class="page-main">
     <div class="page-section">
       <div class="row ">
-      
+        <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
+
         <!-- Gestionar Cliente-->
-        <div *ngIf="administrador" class="col col-md-3">
+        <div *ngIf="administrador && !datosCargados" class="col col-md-3">
           <div class="function-panel main-color-blue">
             <div class="function-body">
               <div class="row">
