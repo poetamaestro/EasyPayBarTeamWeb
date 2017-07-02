@@ -17,12 +17,14 @@
   <ul class="nav navbar-nav">
        <!--
         <li class="nav-item"><a routerLink="/menu-proveedor">Proveedor</a></li>
+
         -->
   <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/proveedor', id, 'categoria']">Categorias</a></li> 
   <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/afiliado', id]">Afiliados</a></li>
-  <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/compras', id]">Compra</a></li>
+  <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/proveedor', id, 'compras']">Compra</a></li>
      
   </ul>
+
 
 
       <ul class="nav navbar-nav navbar-right">
@@ -31,13 +33,12 @@
             <img src='{{ pictureUrl }}' class="nav-img-user img-responsive" alt="Profile_picture">{{ user.auth.displayName }}
           </a>
           <ul class="dropdown-menu" role="menu" dropdownMenu aria-labelledby="navDropdownUser">
+            <li role="menuitem"><a>Funciones del usuario</a></li>
+            <li class="divider"></li>
+            <li *ngIf="administrador" role="menuitem"><a routerLink="/menu-admin">Función Administrador</a></li>
+            <li *ngIf="proveedor" role="menuitem"><a routerLink="/menu-proveedor">Función Proveedor</a></li>
+            <li class="divider"></li>
             <li role="menuitem"><a href="" (click)="a_logout()">Cerrar sesión</a></li>
-            <li>Funciones Usuario</li>
-            <ol>
-              <li *ngIf="administrador" role="menuitem"><a routerLink="/menu-admin"><font size=1>Función Administrador</font></a></li>
-
-              <li *ngIf="proveedor" role="menuitem"><a routerLink="/menu-proveedor"><font size=1>Función Proveedor</font></a></li>
-               </ol>
           <!--  <li role="menuitem"><a routerLink="/menu-admin">Administración</a></li> -->
           </ul>
         </li>

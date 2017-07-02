@@ -43,12 +43,21 @@ export class AfiliadoComponent implements OnInit {
   date: DatePipe = new DatePipe("en-US");
   nombre: string = "";
   key;
+  datosCargados: boolean;
 
   private id;
   private sub: any;
   constructor(private route: ActivatedRoute, private afiliadoService: AfiliadoService, 
     private recargaService: RecargaService, private clienteServicio: ClienteService, 
     private db: AngularFireDatabase) {
+  	this.datosCargados = true;
+
+    this.afiliados = this.afiliadoService.getAfiliados(this.id);
+
+    this.afiliados.subscribe(data => {
+        this.datosCargados = false;
+    });
+  	
   }
 
   ngOnInit() {
@@ -67,15 +76,15 @@ export class AfiliadoComponent implements OnInit {
   openModalAfiliado(id: number, nom: string, saldo: string) {
     this.key = id;
     this.afiliado.nombre = nom;
-    this.afiliado.saldo = parseInt(saldo);
+    this.afiliado.saldo = parseFloat(saldo);
     this.modal.open();
   }
 
   recargar() {
     this.modalVerificar.close();
     this.modal.close();
-    this.recarga.valor = parseInt(this.radioValue);
-    var saldo = this.afiliado.saldo + parseInt(this.radioValue);
+    this.recarga.valor = parseFloat(this.radioValue);
+    var saldo = this.afiliado.saldo + parseFloat(this.radioValue);
     this.afiliadoService.actualizarSaldo(this.id, saldo, this.key);
     this.recarga.fecha_Recarga =  this.date.transform(new Date(), 'dd/MM/yyyy');
     this.recargaService.agregarRecarga( this.recarga, this.id, this.key);
