@@ -20,6 +20,7 @@ import { ClienteComponent } from './cliente/cliente.component';
 import { ProductoComponent} from './producto/producto.component';
 import { MenuProveedorComponent } from './menu-proveedor/menu-proveedor.component';
 import { AfiliadoComponent } from './afiliado/afiliado.component';
+import { PerfilBarComponent } from './perfil-bar/perfil-bar.component';
 
 export const router: Routes = [
   { path: '', redirectTo: 'menu-admin', pathMatch: 'full' },
@@ -39,7 +40,8 @@ export const router: Routes = [
   { path: 'producto', component: ProductoComponent},
   { path: 'proveedor/:id/categoria/:idC/producto', component: ProductoComponent, canActivate: [AuthGuard] },
   { path: 'menu-proveedor', component: MenuProveedorComponent, canActivate: [AuthGuard] },
-  { path: 'afiliado/:id', component: AfiliadoComponent, canActivate: [AuthGuard] }
+  { path: 'afiliado/:id', component: AfiliadoComponent, canActivate: [AuthGuard] },
+  { path: 'proveedor/:id/perfil-bar', component: PerfilBarComponent, canActivate: [AuthGuard] }
 
 ]
 

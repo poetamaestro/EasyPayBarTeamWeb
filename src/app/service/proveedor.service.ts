@@ -29,6 +29,23 @@ export class ProveedorService {
     return this.db.list('/proveedor');
   }
 
+  getById(ProveedorId: string): FirebaseListObservable<Proveedor[]> {
+    return this.db.list('/proveedor', {
+      query: {
+        orderByChild: 'codigoQR',
+        equalTo: ProveedorId
+      }
+    });
+  }
+
+  getAfiliadosById(ProveedorId: string): FirebaseListObservable<Afiliado[]>{
+    return this.db.list('/proveedor/'+ProveedorId+'/afiliados',{
+      query: {
+        orderByChild: 'fechaAfiliacion'
+      }
+    });
+  }
+
   agregar() {
     if (!this.proveedor.nombre) { }
     this.proveedores.push(this.proveedor);

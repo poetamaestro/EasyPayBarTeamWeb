@@ -111,7 +111,6 @@ h2 {
 .navbar{
   margin-bottom:0;
   border:none;
-  min-height: 9vh;
 }
 
 .navbar-brand .glyphicon{
@@ -333,14 +332,14 @@ span.label.label-default.col-md-6{
 /* Mis clases*/
 .main-container{
   background: linear-gradient(145deg,#000000,#595959);
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .component-container{
   background: linear-gradient(145deg,#0869ab,#4491d0);
   margin: 0;
   padding: 15px;
-  min-height: 91vh;
+  min-height: 100%;
 }
 
 /* Estilo de pagina*/
@@ -542,18 +541,48 @@ i#return:hover {
 }
 
  /* Panel de Trabajo */
-.page-main > .work-container {
-    padding: 15px !important;
-    background: rgba(158, 195, 224, 0.85) !important;
-    border-style: solid !important;
-    border-color: #0a0a0a !important;
-    border-width: thin !important;
-    border-radius: 5px !important;
+.work-container {
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #eee;
+    border-style: solid;
+    border-color: #0a0a0a;
+    border-width: thin;
+    border-radius: 5px;
 }
 
-.work-container label {
+.work-container .work-container-head{
+    padding-left: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    font-size: large;
+    font-style: italic;
+    font-weight: bold;
+    border-bottom-style: dotted;
+    border-bottom-color: #bbb;
+    border-bottom-width: thick;
+}
+
+.work-container .work-container-body{
+    padding: 5px;
+    font-size: medium;  
+}
+
+.work-container .work-container-body img {
+    display: block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.work-container .work-container-body label {
     color: black;
-    font-size: small;
+    font-size: medium;
+}
+
+.work-container-body table thead {
+    background: #51a3e6;
+    color: #fff;
 }
 
 .work-container input {
