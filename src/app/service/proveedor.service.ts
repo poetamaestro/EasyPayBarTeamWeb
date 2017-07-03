@@ -29,6 +29,23 @@ export class ProveedorService {
     return this.db.list('/proveedor');
   }
 
+  getById(ProveedorId: string): FirebaseListObservable<Proveedor[]> {
+    return this.db.list('/proveedor', {
+      query: {
+        orderByChild: 'codigoQR',
+        equalTo: ProveedorId
+      }
+    });
+  }
+
+  getAfiliadosById(ProveedorId: string): FirebaseListObservable<Afiliado[]>{
+    return this.db.list('/proveedor/'+ProveedorId+'/afiliados',{
+      query: {
+        orderByChild: 'fechaAfiliacion'
+      }
+    });
+  }
+
   agregar() {
     if (!this.proveedor.nombre) { }
     this.proveedores.push(this.proveedor);
@@ -36,5 +53,13 @@ export class ProveedorService {
 
   remover(id: number) {
     this.db.object('/proveedor/' + id).remove();
+  }
+
+  cambiarBar(ProveedorId: string, nombreBar: string){
+    this.db.object('/proveedor/'+ProveedorId).update({ bar: nombreBar});
+  }
+
+  cambiarImagen(ProveedorId: string, imagen: string, imagenURL: string){
+    this.db.object('/proveedor/'+ ProveedorId).update({ imagen: imagen, imagenURL: imagenURL});
   }
 }

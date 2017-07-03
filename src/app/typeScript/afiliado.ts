@@ -2,14 +2,13 @@ import { Compra } from "./compra";
 import { Recarga } from "./recarga";
 
 export class Afiliado{
+	fechaAfiliacion: string;
 	key: string;
 	codigoQR: string;
-	compras: Array<Compra>;
-	fechaAfiliacion: string;
 	nombre: string;
-	recargas: Array<Recarga>;
+	compras: Array<Compra>;
+	recarga: Array<Recarga>;
 	saldo: number;
 	uid: string;
-
 	constructor() { }
 }
