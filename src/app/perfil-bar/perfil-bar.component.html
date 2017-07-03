@@ -1,0 +1,99 @@
+<app-nav-proveedor></app-nav-proveedor>
+<div class="component-container">
+  <div class="page-head">
+    <i class="fa fa-chevron-left fa-3x" id="return" aria-hidden="true" routerLink="/menu-proveedor"></i>
+    <h1 class="page-title">{{ titulo }}</h1>
+  </div>
+  <div class="page-main">
+    <div class="page-section">
+      <div class="col col-lg-5">
+        <div class="work-container">
+          <div class="work-container-head">
+            Información del Bar
+          </div>
+          <div class="work-container-body">
+            <button class="btn btn-primary btn-sm btnEditar" (click)="editarImagenBar()" [disabled]="editandoBarImagen"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <label>Logo:</label>
+            <img src="{{proveedor.imagenURL}}" alt="logoProveedor" *ngIf="proveedor != undefined && !editandoBarImagen">
+            <img src="https://firebasestorage.googleapis.com/v0/b/easypaybar.appspot.com/o/assets%2Fring.gif?alt=media&token=f9839bf1-5a00-4db9-ac91-98e40b52a55b"
+              style="width: 20%;" *ngIf="proveedor == undefined">
+            <div *ngIf="proveedor != undefined && editandoBarImagen">
+              <input autofocus type="file" class="form-control" name="file" id="file" (change)="seleccionarImagen($event)" />
+              <button type="button" class="btn btn-success btnEditarOpcion" (click)="cambiarImagenBar()"><i class="fa fa-check" aria-hidden="true"></i> Confirmar</button>
+              <button type="button" class="btn btn-danger btnEditarOpcion" (click)="finalizarEditadoImagenBar()"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
+            </div>
+            <br>
+            <button class="btn btn-primary btn-sm btnEditar" (click)="editarNombreBar()" [disabled]="editandoBarNombre"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <label>Nombre del bar:</label>
+            <div *ngIf="proveedor != undefined && !editandoBarNombre">{{ proveedor.bar }}</div>
+            <div *ngIf="proveedor != undefined && editandoBarNombre">
+              <input autofocus type="text" class="form-control txtNombreBar" name="txtnombre" [value]="proveedor.bar" [(ngModel)]="proveedor.bar"
+                placeholder="Ingrese el nombre del bar" #nombre="ngModel" required />
+              <span style="color:#e74c3c;" *ngIf="nombre.errors?.required"><p>El nombre es requerido.</p></span>
+              <button type="button" class="btn btn-success btnEditarOpcion" *ngIf="nombre.errors" disabled><i class="fa fa-check" aria-hidden="true"></i> Confirmar</button>
+              <button type="button" class="btn btn-success btnEditarOpcion" *ngIf="!nombre.errors" data-dismiss="modal" (click)="cambiarNombreBar()"><i class="fa fa-check" aria-hidden="true"></i> Confirmar</button>
+              <button type="button" class="btn btn-danger btnEditarOpcion" (click)="finalizarEditadoNombreBar()"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
+            </div>
+            <br>
+            <label>Dueño del bar:</label>
+            <div *ngIf="proveedor != undefined">{{ proveedor.nombre }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col col-lg-7">
+        <div class="work-container">
+          <div class="work-container-head">
+            Clientes afiliados
+          </div>
+          <div class="work-container-body">
+            <img src="https://firebasestorage.googleapis.com/v0/b/easypaybar.appspot.com/o/assets%2Fring.gif?alt=media&token=f9839bf1-5a00-4db9-ac91-98e40b52a55b"
+              style="width: 20%;" *ngIf="listAfiliados == undefined">
+            <table class="table table-hovered" *ngIf="listAfiliados != undefined">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Saldo</th>
+                  <th>Fecha afiliación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let afiliado of listAfiliados | paginate: { itemsPerPage: 3, currentPage: pageAfiliado }">
+                  <td>{{afiliado.nombre}}</td>
+                  <td>{{afiliado.saldo}} $</td>
+                  <td>{{afiliado.fechaAfiliacion}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- Pagination -->
+            <pagination-controls (pageChange)="pageAfiliado = $event" *ngIf="listAfiliados != undefined"></pagination-controls>
+          </div>
+        </div>
+        <div class="work-container">
+          <div class="work-container-head">
+            Compras realizadas
+          </div>
+          <div class="work-container-body">
+            <img src="https://firebasestorage.googleapis.com/v0/b/easypaybar.appspot.com/o/assets%2Fring.gif?alt=media&token=f9839bf1-5a00-4db9-ac91-98e40b52a55b"
+              style="width: 20%;" *ngIf="listAfiliados == undefined">
+            <table class="table table-hovered" *ngIf="listAfiliados != undefined">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Total</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let compra of comprasRealizadas | paginate: { itemsPerPage: 3, currentPage: page }">
+                  <td>{{compra.total}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- Pagination -->
+            <pagination-controls (pageChange)="page = $event" *ngIf="listAfiliados != undefined"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

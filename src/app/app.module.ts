@@ -36,6 +36,7 @@ import { NavProveedorComponent } from './nav-proveedor/nav-proveedor.component';
 import { MenuProveedorComponent } from './menu-proveedor/menu-proveedor.component';
 import { NavConsumidorComponent } from './nav-consumidor/nav-consumidor.component';
 import { AfiliadoComponent } from './afiliado/afiliado.component';
+import { PerfilBarComponent } from './perfil-bar/perfil-bar.component';
 import { MdButtonModule, MdAutocompleteModule, MdOptionModule } from '@angular/material';
 import 'hammerjs';
 
@@ -56,6 +57,7 @@ import 'hammerjs';
     ClienteComponent,
     CategoriaComponent,
     ProductoComponent,
+    PerfilBarComponent,
 
     CollapseDirective,
 

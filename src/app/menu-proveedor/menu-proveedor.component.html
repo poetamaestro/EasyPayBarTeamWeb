@@ -71,9 +71,28 @@
           </div>
         </div>
 
+        <!--Gestionar perfil bar-->
+        <div *ngIf="proveedor" class="col col-md-3">
+          <div class="function-panel main-color-orange">
+            <div class="function-body">
+              <div class="row">
+                <div class="col col-sm-4">
+                  <i class="fa fa-pencil fa-5x" aria-hidden="true"></i>
+                </div>
+                <div class="col col-sm-8">
+                  <h2>Gestionar Perfil</h2>
+                </div>
+              </div>
+            </div>
+            <div class="function-bottom fill-orange">
+              <a  [routerLink]="['/proveedor', id, 'perfil-bar']">
+                Ver detalles <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-
     </div>
   </div>
 </div>
