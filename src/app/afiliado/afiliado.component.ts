@@ -9,6 +9,7 @@ import { Recarga } from "../typeScript/recarga";
 import { DatePipe } from "@angular/common";
 import { Cliente } from './../typeScript/cliente';
 import { ClienteService } from '../service/cliente.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-afiliado',
@@ -31,7 +32,7 @@ export class AfiliadoComponent implements OnInit {
   @ViewChild('modalVerificarAfiliado')
   modalVerificarAfiliado: ModalComponent;
 
-  titulo = 'Afiliados';
+  titulo = 'Registro de afiliados';
   afiliados: FirebaseListObservable<Afiliado[]>;
   afiliado: Afiliado = new Afiliado();
   nuevoAfiliado: Afiliado = new Afiliado();
@@ -45,19 +46,29 @@ export class AfiliadoComponent implements OnInit {
   key;
   datosCargados: boolean;
 
+  // Definir las variables para el autocomplete
+  private clientesFiltrados = [];
+  clienteCtrl: FormControl;
+  filtroClientes: any;
+
   private id;
   private sub: any;
   constructor(private route: ActivatedRoute, private afiliadoService: AfiliadoService, 
     private recargaService: RecargaService, private clienteServicio: ClienteService, 
     private db: AngularFireDatabase) {
-  	this.datosCargados = true;
+    this.datosCargados = true;
 
     this.afiliados = this.afiliadoService.getAfiliados(this.id);
 
     this.afiliados.subscribe(data => {
         this.datosCargados = false;
     });
-  	
+
+    // Proceso para añadir el arreglo al autocomplete
+    this.clienteCtrl = new FormControl();
+    this.filtroClientes = this.clienteCtrl.valueChanges
+        .startWith(null)
+        .map(nombre => this.buscarClientesFiltrados(nombre));
   }
 
   ngOnInit() {
@@ -65,6 +76,30 @@ export class AfiliadoComponent implements OnInit {
       this.id = params['id'];
     });
     this.afiliados = this.afiliadoService.getAfiliados(this.id);
+    this.obtenerAfiliados();
+  }
+
+  buscarClientesFiltrados(nombre: string) {
+    return nombre ? this.clientesFiltrados.filter(s => s.toLowerCase().indexOf(nombre.toLowerCase()) === 0)
+               : this.clientesFiltrados;
+  }
+
+  obtenerAfiliados() {
+    const queryObservable = this.db.list('/cliente', {
+      query: {
+        orderByChild: 'codigoQR'
+      }
+    }).first();
+
+    queryObservable.subscribe(queriedItems => {
+      if(queriedItems.length > 0) {
+        for (var i = 0; i < queriedItems.length; ++i) {
+          if (queriedItems[i].codigoQR !== this.id) {
+            this.clientesFiltrados.push(queriedItems[i].nombre);
+          }
+        }
+      }
+    }); 
   }
 
   openModalAfiliadoCrear() {

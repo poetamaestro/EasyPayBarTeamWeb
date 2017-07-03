@@ -338,11 +338,11 @@ export class ComprasComponent implements OnInit {
 
     // simple sorting
     return data.sort((previous: any, current: any) => {
-      if (previous[columnName] > current[columnName]) {
+      if (previous[columnName].toLowerCase() > current[columnName].toLowerCase()) {
         return sort === 'desc'
           ? -1
           : 1;
-      } else if (previous[columnName] < current[columnName]) {
+      } else if (previous[columnName].toLowerCase() < current[columnName].toLowerCase()) {
         return sort === 'asc'
           ? -1
           : 1;
@@ -375,6 +375,12 @@ export class ComprasComponent implements OnInit {
       let flag = false;
       this.columns.forEach((column: any) => {
         if (item[column.nombre].toString()
+                             .match(this.config.filtering.filterString) || 
+
+                             item[column.nombre].toString().toLowerCase()
+                             .match(this.config.filtering.filterString) ||
+
+                             item[column.nombre].toString().toUpperCase()
                              .match(this.config.filtering.filterString)) {
           flag = true;
         }

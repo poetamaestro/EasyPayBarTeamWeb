@@ -771,6 +771,7 @@ i#return:hover {
   right: 50px;
 }
 
+/* Color para el boton flotante*/
 .mat-fab {
   color: #fff;
   background-color: #d05326;
@@ -786,52 +787,8 @@ i#return:hover {
   color: #fff;
 }
 
-.mat-option {
-  color: rgba(0,0,0,.87);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-  line-height: 48px;
-  height: 48px;
-  padding: 0 16px;
-  font-size: 16px;
-  font-family: Roboto,Helvetica Neue,sans-serif;
-  text-align: left;
-  text-decoration: none;
-  position: relative;
-  cursor: pointer;
-  outline: none;
-}
-
-.mat-autocomplete-panel, .mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active) {
-  background: #fff;
-  color: rgba(0,0,0,.87);
-}
-
-.cdk-overlay-backdrop, .cdk-overlay-pane {
-  position: absolute;
-  pointer-events: auto;
-  z-index: 1000;
-}
-
-.cdk-global-overlay-wrapper, .cdk-overlay-container {
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-}
-
-.mat-option:focus:not(.mat-option-disabled), .mat-option:hover:not(.mat-option-disabled) {
-  background: #0d5a90;
-  color: #fff;
-}
-
-.mat-option.mat-active, .mat-option.mat-selected:not(.mat-option-multiple) {
-  background: #0d5a90;
-  color: #fff;
-}
+/*Estilo del Autocomplete*/
+.mat-option{font-family:Roboto,"Helvetica Neue",sans-serif;font-size:16px}.mat-simple-snackbar{font-family:Roboto,"Helvetica Neue",sans-serif;font-size:14px}.mat-simple-snackbar-action{line-height:1;font-family:inherit;font-size:inherit;font-weight:500}.mat-ripple{overflow:hidden}.mat-ripple.mat-ripple-unbounded{overflow:visible}.mat-ripple-element{position:absolute;border-radius:50%;pointer-events:none;transition:opacity,transform 0s cubic-bezier(0,0,.2,1);transform:scale(0)}.mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative;cursor:pointer;outline:0}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.mat-option-ripple{position:absolute;top:0;left:0;bottom:0;right:0;pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-option-ripple{opacity:.5}}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}.mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default;font-weight:700;font-size:14px}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}.cdk-visually-hidden{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;text-transform:none;width:1px}.cdk-global-overlay-wrapper,.cdk-overlay-container{pointer-events:none;top:0;left:0;height:100%;width:100%}.cdk-overlay-container{position:fixed;z-index:3000}.cdk-global-overlay-wrapper{display:flex;position:absolute;z-index:3000}.cdk-overlay-pane{position:absolute;pointer-events:auto;box-sizing:border-box;z-index:3000}.cdk-overlay-backdrop{position:absolute;top:0;bottom:0;left:0;right:0;z-index:3000;pointer-events:auto;transition:opacity .4s cubic-bezier(.25,.8,.25,1);opacity:0}.cdk-overlay-backdrop.cdk-overlay-backdrop-showing{opacity:.48}.cdk-overlay-dark-backdrop{background:rgba(0,0,0,.6)}.cdk-overlay-transparent-backdrop{background:0 0}.cdk-global-scrollblock{position:fixed;width:100%;overflow-y:scroll}.mat-ripple-element{background-color:rgba(0,0,0,.1)}.mat-option{color:rgba(0,0,0,.87)}.mat-option:focus:not(.mat-option-disabled),.mat-option:hover:not(.mat-option-disabled){background:rgba(0,0,0,.04)}.mat-option.mat-selected.mat-primary,.mat-primary .mat-option.mat-selected{color:#673ab7}.mat-accent .mat-option.mat-selected,.mat-option.mat-selected.mat-accent{color:#ffd740}.mat-option.mat-selected.mat-warn,.mat-warn .mat-option.mat-selected{color:#f44336}.mat-option.mat-selected:not(.mat-option-multiple){background:rgba(0,0,0,.04)}.mat-option.mat-active{background:rgba(0,0,0,.04);color:rgba(0,0,0,.87)}.mat-option.mat-option-disabled{color:rgba(0,0,0,.38)}.mat-optgroup-label{color:rgba(0,0,0,.54)}.mat-optgroup-disabled .mat-optgroup-label{color:rgba(0,0,0,.38)}.mat-pseudo-checkbox{color:rgba(0,0,0,.54)}.mat-pseudo-checkbox::after{color:#fafafa}.mat-primary .mat-pseudo-checkbox-checked,.mat-primary .mat-pseudo-checkbox-indeterminate,.mat-pseudo-checkbox-checked.mat-primary,.mat-pseudo-checkbox-indeterminate.mat-primary{background:#673ab7}.mat-accent .mat-pseudo-checkbox-checked,.mat-accent .mat-pseudo-checkbox-indeterminate,.mat-pseudo-checkbox-checked.mat-accent,.mat-pseudo-checkbox-indeterminate.mat-accent{background:#ffd740}.mat-pseudo-checkbox-checked.mat-warn,.mat-pseudo-checkbox-indeterminate.mat-warn,.mat-warn .mat-pseudo-checkbox-checked,.mat-warn .mat-pseudo-checkbox-indeterminate{background:#f44336}.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-disabled,.mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-disabled{background:#b0b0b0}.mat-app-background{background-color:#fafafa}.mat-theme-loaded-marker{display:none}.mat-autocomplete-panel{background:#fff;color:rgba(0,0,0,.87)}.mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover){background:#fff;color:rgba(0,0,0,.87)}.mat-button,.mat-icon-button{background:0 0}.mat-button.mat-primary .mat-button-focus-overlay,.mat-icon-button.mat-primary .mat-button-focus-overlay{background-color:rgba(103,58,183,.12)}
 
 #v {
   width: 570px;

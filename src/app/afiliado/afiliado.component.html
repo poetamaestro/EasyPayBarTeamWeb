@@ -30,9 +30,9 @@
           <tr *ngFor="let afl of afiliados | async | paginate: { itemsPerPage: 10, currentPage: p }">
             <td>{{ afl.nombre }}</td>
             <td>{{ afl.fechaAfiliacion }}</td>
-            <td>{{ afl.saldo | number : '1.2-2' }}</td>
+            <td>${{ afl.saldo | number : '1.2-2' }}</td>
             <td style="width: 10%;">
-              <button class="btn btn-primary" (click)="openModalAfiliado(afl.$key, afl.nombre, afl.saldo)" > <i class="fa fa-plus" aria-hidden="true"></i> </button>
+              <button class="btn btn-primary" (click)="openModalAfiliado(afl.$key, afl.nombre, afl.saldo)"><i class="fa fa-credit-card" aria-hidden="true"></i></button>
             </td>
           </tr>
         </tbody>
@@ -116,12 +116,25 @@
   </modal-header>
 
   <modal-body >
-    <div style="text-align: center;" class="row">
-      <div class="col-md-6" style="border: 0; padding-right: 0%;">
-        <input type="text" class="form-control text-primary" [value]="nombre" [(ngModel)]="nombre" placeholder="Ingrese el Cliente/a a Buscar">
+    <div class="row">
+      <div class="col-sm-2" style="border: 0; padding-right: 0%;">
+        <label class="col-lg-2 control-label"><h5>Cliente:</h5></label>
       </div>
-      <div class="col-md-4" >
-      <button  type="button" style="height: 75%; width: 30%;" class="btn btn-success col-lg-5" (click)="getClientes();" ><i class="fa fa-search" aria-hidden="true"></i> </button>
+      <div class="col-sm-10">
+        <div class="input-group search-bar" style="width: 80%; margin-left: 20px;">
+          <input mdInput class="form-control" [value]="nombre" [(ngModel)]="nombre" placeholder="Ingrese el Cliente/a a Buscar" [mdAutocomplete]="auto" [formControl]="clienteCtrl">
+
+          <md-autocomplete #auto="mdAutocomplete">
+            <md-option *ngFor="let cliente of filtroClientes | async" [value]="cliente">
+              {{ cliente }}
+            </md-option>
+          </md-autocomplete>
+
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-info" (click)="getClientes();" ><i class="fa fa-search" aria-hidden="true"></i></button>    
+          </span>
+        </div>
+
       </div>
     </div>
     <div class="row" >
