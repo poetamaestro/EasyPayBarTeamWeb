@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-  background:#E2E4E6;
+  background: linear-gradient(145deg,#0869ab,#4491d0);
+  height: 100%;
 }
 
 .form-container {
@@ -389,15 +390,12 @@ span.label.label-default.col-md-6{
 
 /* Mis clases*/
 .main-container{
-  background: linear-gradient(145deg,#000000,#595959);
-  height: 100vh;
+
 }
 
 .component-container{
-  background: linear-gradient(145deg,#0869ab,#4491d0);
   margin: 0;
   padding: 15px;
-  min-height: 100%;
 }
 
 /* Estilo de pagina*/

@@ -1,0 +1,22 @@
+button.btnEditar {
+    width: auto;
+    font-size: 20px;
+    color: #204d74;
+    background: none;
+    border: none;
+}
+
+button.btnEditar:hover {
+    color: #ff5200;
+}
+
+button.btnEditarOpcion{
+    width: auto;
+}
+
+input.txtNombreBar{
+    border-bottom: 1px solid #333;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+}

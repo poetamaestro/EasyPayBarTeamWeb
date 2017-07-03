@@ -54,4 +54,12 @@ export class ProveedorService {
   remover(id: number) {
     this.db.object('/proveedor/' + id).remove();
   }
+
+  cambiarBar(ProveedorId: string, nombreBar: string){
+    this.db.object('/proveedor/'+ProveedorId).update({ bar: nombreBar});
+  }
+
+  cambiarImagen(ProveedorId: string, imagen: string, imagenURL: string){
+    this.db.object('/proveedor/'+ ProveedorId).update({ imagen: imagen, imagenURL: imagenURL});
+  }
 }
