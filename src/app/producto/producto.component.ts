@@ -76,27 +76,6 @@ export class ProductoComponent implements OnInit {
     this.productos = this.productoServicio.getProductos(this.idPro, this.idCat);
   }
 
-  buscarProducto() {
-    const subject = new Subject();
-    const queryObservable = this.af.database.list('/proveedor/' + this.idPro + '/categoria/' + this.idCat + '/producto', {
-      query: {
-        orderByChild: 'nombre',
-        startAt: this.pista,
-      }
-    });
-
-    this.productos = queryObservable;
-    subject.next(this.pista);
-
-    queryObservable.subscribe(queriedItems => {
-      if (queriedItems.length > 0) {
-        this.resultado = '';
-      } else {
-        this.resultado = 'No se encotraron Resultados con el Nombre: \'' + this.pista + '\'';
-      }
-    });
-  }
-
   seleccionarImagen(event: EventTarget) {
     const eventObj: MSInputMethodContext = <MSInputMethodContext>event;
     const target: HTMLInputElement = <HTMLInputElement>eventObj.target;
@@ -174,18 +153,6 @@ export class ProductoComponent implements OnInit {
         );
       });
     }
-
-    // Subir la nueva imagen
-    const storageRef = firebase.storage().ref();
-    const imageRef = storageRef.child('productos/' + this.file.name);
-    const pathRef = firebase.storage().ref('productos/' + this.file.name);
-    const uploadTask = imageRef.put(this.file);
-
-    uploadTask.then((snapshot) => {
-      pathRef.getDownloadURL().then(url =>
-        this.productoServicio.actualizarProducto(this.idPro, this.idCat, this.key, this.producto, this.file, url)
-      );
-    });
   }
 
   eliminarProducto() {

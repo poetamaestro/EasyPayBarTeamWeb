@@ -8,6 +8,7 @@ import { QrScannerModule } from 'angular2-qrscanner';
 import { Ng2TableModule } from 'ng2-table';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ResponsiveModule } from 'ng2-responsive';
+import { FilterPipe } from './producto/buscadorProducto.pipe';
 
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { CollapseDirective } from 'ng2-bootstrap';
@@ -67,7 +68,8 @@ import 'hammerjs';
 
     NavConsumidorComponent,
 
-    AfiliadoComponent
+    AfiliadoComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
