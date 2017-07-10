@@ -35,10 +35,10 @@
           <ul class="dropdown-menu" role="menu" dropdownMenu aria-labelledby="navDropdownUser">
             <li role="menuitem"><a>Funciones del usuario</a></li>
             <li class="divider"></li>
-            <li *ngIf="administrador" role="menuitem"><a routerLink="/menu-admin">Función Administrador</a></li>
-            <li *ngIf="proveedor" role="menuitem"><a routerLink="/menu-proveedor">Función Proveedor</a></li>
+            <li *ngIf="administrador" role="menuitem"><a routerLink="/menu-admin"><i class="fa fa-user" aria-hidden="true"></i> Función Administrador</a></li>
+            <li *ngIf="proveedor" role="menuitem"><a routerLink="/menu-proveedor"><i class="fa fa-user-o" aria-hidden="true"></i> Función Proveedor</a></li>
             <li class="divider"></li>
-            <li role="menuitem"><a href="" (click)="a_logout()">Cerrar sesión</a></li>
+            <li role="menuitem"><a href="" (click)="a_logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</a></li>
           <!--  <li role="menuitem"><a routerLink="/menu-admin">Administración</a></li> -->
           </ul>
         </li>

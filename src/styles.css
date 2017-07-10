@@ -4,6 +4,10 @@ body {
   height: 100%;
 }
 
+html {
+  height: 100%;
+}
+
 .form-container {
   background:white;
   padding:3.5em;
@@ -37,6 +41,14 @@ h2 {
   margin: 1.7em 0 .9em 0;
 }
 
+.table {
+  box-shadow: 0 14px 28px rgba(30, 83, 121, 0.19), 0 10px 10px rgba(18, 47, 113, 0.57);
+}
+
+.table-normal {
+  box-shadow: 0 14px 28px rgba(255, 255, 255, 0), 0 10px 10px rgba(197, 197, 197, 0);
+}
+
 .alc {
   text-align:center;
   display:block;
@@ -63,10 +75,11 @@ h2 {
 
 /* Animacion cuando se carga la página*/
 .sk-folding-cube {
-  margin: 20% auto;
+  margin: 0 auto;
   width: 8em;
   height: 8em;
   position: relative;
+  top: 300px;
   -webkit-transform: rotateZ(45deg);
           transform: rotateZ(45deg);
 }
@@ -88,6 +101,7 @@ h2 {
   width: 100%;
   height: 100%;
   background-color: #333;
+  box-shadow: 0 14px 28px rgba(105, 100, 100, 0.25), 0 10px 10px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
           animation: sk-foldCubeAngle 2.4s infinite linear both;
@@ -167,9 +181,10 @@ h2 {
   }
 }
 
-.navbar{
-  margin-bottom:0;
-  border:none;
+.navbar {
+  margin-bottom: 0;
+  border: none;
+  box-shadow: 0 3px 4px 0 rgba(0,0,0,0.14), 0 3px 3px -2px rgba(0,0,0,0.12), 0 1px 8px 0 rgba(0,0,0,0.2);
 }
 
 .navbar-brand .glyphicon{
@@ -463,6 +478,7 @@ i#return:hover {
   padding: 5px;
   background: #fff;
   border-radius: 5px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .function-panel .function-head{
@@ -605,6 +621,7 @@ i#return:hover {
     border-color: #0a0a0a;
     border-width: thin;
     border-radius: 5px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .work-container .work-container-head{
@@ -639,6 +656,10 @@ i#return:hover {
 .work-container-body table thead {
     background: #51a3e6;
     color: #fff;
+}
+
+.work-container .table {
+  box-shadow: 0 14px 28px rgba(238, 238, 238, 0.73), 0 10px 10px rgba(101, 101, 101, 0.57);
 }
 
 .work-container input {
@@ -698,6 +719,7 @@ i#return:hover {
     padding: 5px;
     background: #fff;
     border-radius: 5px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .product-img {

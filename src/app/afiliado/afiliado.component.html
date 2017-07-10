@@ -137,8 +137,8 @@
 
       </div>
     </div>
-    <div class="row" >
-      <table class="table table-hovered" >
+    <div class="row">
+      <table class="table table-hovered table-normal">
         <thead>
         <tr>
           <th style="text-align: center">Nombre</th>
@@ -150,7 +150,7 @@
           <td style="text-align: center">{{ cli.nombre }}</td>
 
           <td>
-            <button class="btn btn-sm btn-success" (click)="registrarAfiliados(cli.uid, cli.nombre, cli.codigoQR)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button class="btn btn-primary" (click)="registrarAfiliados(cli.uid, cli.nombre, cli.codigoQR)"><i class="fa fa-plus" aria-hidden="true"></i></button>
           </td>
         </tr>
         </tbody>
