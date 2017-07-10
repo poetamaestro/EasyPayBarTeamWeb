@@ -1,4 +1,4 @@
-<app-nav></app-nav>
+<app-nav-proveedor></app-nav-proveedor>
 
 <div class="component-container">
   <div class="page-head">
@@ -10,10 +10,6 @@
       <div class="col-sm-8"><br>
         <div class="input-group search-bar" style="width: 40%; margin-left: 20px;">
           <input type="text" class="form-control text-primary" [(ngModel)]="pista" placeholder="Ingrese el producto a buscar">
-          <span class="input-group-btn">
-          <button class="btn btn-info" (click)="buscarProducto()" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-          </span>
-          <div class="alert-danger"><strong>{{ resultado }}</strong></div>
         </div>
       </div>
       <div class="col-sm-1">
@@ -27,7 +23,7 @@
       <div class="row">
         <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
 
-        <div class="col col-md-3" *ngFor="let produc of productos | async | paginate: { itemsPerPage: 8, currentPage: p }">
+        <div class="col col-md-3" *ngFor="let produc of productos | buscarPor:pista | async | paginate: { itemsPerPage: 8, currentPage: p }">
           <div class="product-panel main-color-black" *ngIf="!datosCargados">
             <div class="product-img">
               <img src="{{produc.imagenURL}}" alt="Cinque Terre">
@@ -47,6 +43,7 @@
           </div>
         </div>
       </div>
+      <br>
       <div class="row">
         <!-- Pagination -->
         <pagination-controls *ngIf="!datosCargados" (pageChange)="p = $event"></pagination-controls>

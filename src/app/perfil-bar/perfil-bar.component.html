@@ -59,7 +59,7 @@
               <tbody>
                 <tr *ngFor="let afiliado of listAfiliados | paginate: { itemsPerPage: 3, currentPage: pageAfiliado }">
                   <td>{{afiliado.nombre}}</td>
-                  <td>{{afiliado.saldo}} $</td>
+                  <td>${{afiliado.saldo}}</td>
                   <td>{{afiliado.fechaAfiliacion}}</td>
                 </tr>
               </tbody>
@@ -68,6 +68,7 @@
             <pagination-controls (pageChange)="pageAfiliado = $event" *ngIf="listAfiliados != undefined"></pagination-controls>
           </div>
         </div>
+        <br>
         <div class="work-container">
           <div class="work-container-head">
             Compras realizadas
