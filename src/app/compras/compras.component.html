@@ -126,7 +126,7 @@
             </tbody>
           </table>
           <!-- Pagination -->
-          <pagination-controls (pageChange)="page = $event" id="listaProductosDetalle"></pagination-controls>
+          <pagination-controls *ngIf="listaProductosDetalle.length != 0" (pageChange)="page = $event" id="listaProductosDetalle"></pagination-controls>
         </div>
 
       </div>
