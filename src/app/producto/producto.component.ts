@@ -53,6 +53,7 @@ export class ProductoComponent implements OnInit {
   producto: Producto = new Producto();
   productos: FirebaseListObservable<Producto[]>;
   datosCargados: boolean;
+  private imagenValidada: boolean = true;
 
   constructor(private productoServicio: ProductoService, public af: AngularFire, private route: ActivatedRoute) {
     this.datosCargados = true;
@@ -80,6 +81,22 @@ export class ProductoComponent implements OnInit {
     const eventObj: MSInputMethodContext = <MSInputMethodContext>event;
     const target: HTMLInputElement = <HTMLInputElement>eventObj.target;
     this.file = target.files[0];
+    this.validarTamannoImagen(this.file);
+  }
+
+  validarTamannoImagen(dimesionImagen: File) {
+    if (dimesionImagen != undefined) {
+      // La imagen se transforma a KB.
+      var imagenKB = dimesionImagen.size / 1024;
+
+      if (imagenKB > 150) {
+        this.imagenValidada = false;
+      } else {
+        this.imagenValidada = true;
+      }
+    } else {
+      this.imagenValidada = true;
+    }
   }
 
   subirImagen(imageFile: File) {
@@ -181,6 +198,7 @@ export class ProductoComponent implements OnInit {
   }
 
   openModalProductoEditar(id, nombre: string, precio: number, veces: number, imagen: string, imagenURL: string) {
+    this.imagenValidada = true;
     this.key = id;
     this.producto.nombre = nombre;
     this.producto.precio = precio;
