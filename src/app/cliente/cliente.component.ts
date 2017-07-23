@@ -29,9 +29,6 @@ export class ClienteComponent implements OnInit {
   @ViewChild('modalMensaje')
   modalMensaje: ModalComponent;
 
-  // Variables para la imagen
-  file: File;
-
   // Variables para gestionar clientes
   clientes: FirebaseListObservable<Cliente[]>;
   cliente: Cliente = new Cliente();
@@ -60,12 +57,6 @@ export class ClienteComponent implements OnInit {
     this.getClientes();
   }
 
-  seleccionarImagen(event: EventTarget) {
-    const eventObj: MSInputMethodContext = <MSInputMethodContext>event;
-    const target: HTMLInputElement = <HTMLInputElement>eventObj.target;
-    this.file = target.files[0];
-  }
-
   borrarImagen(imagenPath: string) {
     const storageRef = firebase.storage().ref();
     const imageRef = storageRef.child(imagenPath);
@@ -89,18 +80,11 @@ export class ClienteComponent implements OnInit {
       if (queriedItems.length === 0) {
         this.clienteServicio.promoverProveedor(this.cliente.key);
 
-        // Subir imagen
-        const storageRef = firebase.storage().ref();
-        const imageRef = storageRef.child('proveedor/' + this.file.name);
-        const pathRef = firebase.storage().ref('proveedor/' + this.file.name);
-        const uploadTask = imageRef.put(this.file);
-
-        uploadTask.then((snapshot) => {
-          pathRef.getDownloadURL().then(url =>
-            // Crear proveedor
-            this.proveedorServicio.crear(this.cliente.nombre, this.cliente.codigoQR, this.proveedor.bar, this.file, url)
-          );
-        });
+        const imagenPath = 'productos/producto_default.jpg';
+        const imagenURL = 'https://firebasestorage.googleapis.com/v0/b/easypaybar.appspot.com/o/' +
+        'productos%2Fproducto_default.jpg?alt=media&token=07c0c51e-b277-4c0a-b739-ce79af920ee6';
+        this.proveedorServicio.crear(this.cliente.nombre, 
+          this.cliente.codigoQR, this.proveedor.bar, imagenPath, imagenURL);
 
       } else {
         this.mensajeError = 'Este usuario ya esta promovido como Proveedor.';
@@ -122,24 +106,28 @@ export class ClienteComponent implements OnInit {
         this.clienteServicio.promoverCliente(this.cliente.key);
 
         // Borrar imagen
-        this.borrarImagen(queriedItems[0].imagen);
+        if (queriedItems[0].imagen != "productos/producto_default.jpg") {
+          this.borrarImagen(queriedItems[0].imagen);
+        }
+        
         // Borrar proveedor
         this.proveedorServicio.remover(queriedItems[0].$key);
       }
     });
   }
 
-  modalProveedor(id: number, nom: string, codQR: string) {
+  modalProveedor(id: string, cli: Cliente) {
+    this.proveedor.bar = "";
     this.cliente.key = id;
-    this.cliente.nombre = nom;
-    this.cliente.codigoQR = codQR;
+    this.cliente.nombre = cli.nombre;
+    this.cliente.codigoQR = cli.codigoQR;
     this.modalToProveedor.open();
   }
 
-  modalCliente(id: number, nom: string, codQR: string) {
+  modalCliente(id: string, cli: Cliente) {
     this.cliente.key = id;
-    this.cliente.nombre = nom;
-    this.cliente.codigoQR = codQR;
+    this.cliente.nombre = cli.nombre;
+    this.cliente.codigoQR = cli.codigoQR;
     this.modalToCliente.open();
   }
 

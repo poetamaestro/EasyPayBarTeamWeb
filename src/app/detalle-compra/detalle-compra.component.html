@@ -15,27 +15,37 @@
 
   <div class="page-main">
     <div class="page-section">
-    	<div class="panel panel-primary">
-        	<div class="panel-heading">
-          		<h3 class="panel-title"><b>Datos de la compra</b></h3>
-        	</div>
+
+      <div class="compra-container">
+        
+        <div class="compra-container-head">
+            <h4><b>Datos de la compra</b></h4>
+        </div>
         	
-        	<div class="color-panel-body panel-body">
-          		<div class="row">
-          			<div class="col-sm-6">
-              			<label class="col-lg-4 control-label"><h4><b><span style="color:#fff;">Fecha: {{ compra.fecha_Compra }}</span></b></h4></label>            
-            		</div>
+        <div class="compra-container-body">
+          <div class="row">
+            <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="compra.fecha_Compra == undefined && afiliado.saldo == undefined"></i>
 
-		            <div class="col-sm-6">
-		            	<label class="col-lg-4 control-label"><h4><b><span style="color:#fff;">Saldo: ${{ afiliado.saldo | number : '1.2-2' }}</span></b></h4></label>
-		            </div>
+          	<div class="col-sm-6" *ngIf="compra.fecha_Compra != undefined && afiliado.saldo != undefined">
+              <label class="col-lg-4 control-label"><h4><b>Fecha:</b> {{ compra.fecha_Compra }}</h4></label>
+            </div>
 
-          		</div>
-        	</div>
-      	</div>
+		        <div class="col-sm-6" *ngIf="compra.fecha_Compra != undefined && afiliado.saldo != undefined">
+		          <label class="col-lg-4 control-label"><h4><b>Saldo Total:</b> ${{ afiliado.saldo | number : '1.2-2' }}</h4></label>
+		        </div>
 
-      	<h3><span style="color:#fff;"><b>Listado de los productos comprados</b></span></h3>
-          <table class="table table-hovered">
+          </div>
+        </div>
+      </div>
+
+      <br><div class="compra-container">
+        <div class="compra-container-head">
+          <h4><b>Listado de los productos comprados</b></h4>
+        </div>
+          
+        <div class="compra-container-body">
+          <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="listaDetalleCompra.length == 0"></i>
+          <table class="table table-hovered" *ngIf="listaDetalleCompra.length != 0">
             <thead>
               <tr>
                 <th>Categoría</th>
@@ -57,7 +67,9 @@
             </tbody>
           </table>
           
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <pagination-controls *ngIf="listaDetalleCompra.length != 0" (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
 
     </div>
   </div>

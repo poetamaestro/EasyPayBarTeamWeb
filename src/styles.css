@@ -75,11 +75,16 @@ h2 {
 
 /* Animacion cuando se carga la página*/
 .sk-folding-cube {
-  margin: 0 auto;
-  width: 8em;
+  position: fixed;
+  z-index: 999;
   height: 8em;
-  position: relative;
-  top: 300px;
+  width: 8em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   -webkit-transform: rotateZ(45deg);
           transform: rotateZ(45deg);
 }
@@ -624,7 +629,7 @@ i#return:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-.work-container .work-container-head{
+.work-container .work-container-head {
     padding-left: 5px;
     padding-bottom: 5px;
     text-align: left;
@@ -662,34 +667,11 @@ i#return:hover {
   box-shadow: 0 14px 28px rgba(238, 238, 238, 0.73), 0 10px 10px rgba(101, 101, 101, 0.57);
 }
 
-.work-container input {
-    display: block;
-    width: 100%;
-    height: 40px;
-    padding: 6px 12px 0px;
-    font-size: 14px;
-    color: #333;
-    background-color: rgba(255, 255, 255, 0);
-    border-bottom: 1px solid #eee;
-    border-top-style: none;
-    border-right-style: none;
-    border-left-style: none;
-    box-shadow: none;
-}
-
-.work-container input:focus {
-    background-color: rgba(255, 255, 255, 0.20);
-    border-bottom: 1px solid #333;
-    border-top-style: none;
-    border-right-style: none;
-    border-left-style: none;
-}
-
-.work-container input[type=file]{
+.work-container input[type=file] {
     border: none;
 }
 
-.work-container select{
+.work-container select {
     display: block;
     margin-bottom: 10px;
     height: initial;
@@ -697,7 +679,7 @@ i#return:hover {
     color: #333;
 }
 
-.work-container textarea{
+.work-container textarea {
     display: block;
     width: 100%;
 }
@@ -705,7 +687,50 @@ i#return:hover {
 .work-container > .row > .col > .btn{
   margin-bottom: 10px;
   width: initial;
+}
+
+.work-container .ng2-pagination .disabled {
+  padding: 0.1875rem 0.625rem;
+  color: #000000;
+  cursor: not-allowed;
 } 
+
+/* Compra Container */
+.compra-container {
+  padding: 10px;
+  margin-bottom: 5px;
+  background: #eee;
+  border-style: solid;
+  border-color: #0a0a0a;
+  border-width: thin;
+  border-radius: 5px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.compra-container .compra-container-head {
+  padding-left: 5px;
+  border-bottom-style: ridge;
+}
+
+.compra-container .compra-container-body{
+  padding: 5px;
+  font-size: medium;  
+}
+
+.compra-container-body table thead {
+  background: #51a3e6;
+  color: #fff;
+}
+
+.compra-container .table {
+  box-shadow: 0 14px 28px rgba(238, 238, 238, 0.73), 0 10px 10px rgba(101, 101, 101, 0.57);
+}
+
+.compra-container .ng2-pagination .disabled {
+  padding: 0.1875rem 0.625rem;
+  color: #000000;
+  cursor: not-allowed;
+}
 
 /* Clases extra para las tablas */
 .img-product{
@@ -819,7 +844,7 @@ i#return:hover {
 
 /* icono recargable */
 .icon-loading {
-	color: #f8f8f8; 
-	width: 100%; 
+	color: #222222;
 	margin-top: 50px;
+  width: 100%;
 }
