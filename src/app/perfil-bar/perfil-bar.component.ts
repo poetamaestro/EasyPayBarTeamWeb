@@ -61,7 +61,6 @@ export class PerfilBarComponent implements OnInit, OnDestroy {
     this.objectAfiliados = this.proveedorServicio.getAfiliadosById(this.id);
     this.objectAfiliados.subscribe(item => {
       this.listAfiliados = item;
-      console.log(this.listAfiliados);
       this.listAfiliados.forEach(afiliado => {
         if (afiliado.compras != undefined) {
           console.log(afiliado.compras);

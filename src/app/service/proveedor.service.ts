@@ -15,12 +15,12 @@ export class ProveedorService {
     this.proveedores = db.list('/proveedor');
   }
 
-  crear(nom: string, codQR: string, nombreBar: string, imagenFile: File, URL: string): void {
+  crear(nom: string, codQR: string, nombreBar: string, imagenFile, URL: string): void {
     firebase.database().ref('proveedor/' + codQR).set({
       bar: nombreBar,
       codigoQR: codQR,
       nombre: nom,
-      imagen: 'proveedor/' + imagenFile.name,
+      imagen: imagenFile,
       imagenURL: URL
     });
   }

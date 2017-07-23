@@ -25,10 +25,10 @@
 							<td>{{ cli.estado ? 'Activo' : 'Inactivo' }}</td>
 							<td [ngSwitch]="cli.proveedor">
 								<span *ngSwitchCase="false">
-									<button class="btn btn-sm btn-success" (click)="modalProveedor(cli.$key, cli.nombre, cli.codigoQR)"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>	
+									<button class="btn btn-sm btn-success" (click)="modalProveedor(cli.$key, cli)"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>	
 								</span>
 								<span *ngSwitchDefault>
-									<button class="btn btn-sm btn-danger" (click)="modalCliente(cli.$key, cli.nombre, cli.codigoQR)"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>	
+									<button class="btn btn-sm btn-danger" (click)="modalCliente(cli.$key, cli)"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>	
 								</span>
 							</td>
 						</tr>
@@ -61,13 +61,6 @@
 				<input type="text" class="form-control" name="txtBar" placeholder="Ingrese el nombre del bar" [(ngModel)]="proveedor.bar"
 				 #bar="ngModel" required />
 				<span style="color:#e74c3c;" *ngIf="bar.errors?.required"><p>El nombre es requerido.</p></span>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="col-lg-2 control-label"><h5><b>Logo:</b></h5></label>
-			<div class="col-lg-9">
-				<input type="file" name="file" id="file" (change)="seleccionarImagen($event)" />
 			</div>
 		</div>
 	</modal-body>

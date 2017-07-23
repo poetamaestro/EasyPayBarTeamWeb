@@ -16,13 +16,14 @@
   <div class="page-main">
     <div class="page-section">
 
-      <div class="panel panel-primary">
-        <div class="color-panel-body panel-body">
+      <div class="compra-container">
+        <div class="compra-container-body">
+
           <div class="row">
             <div class="col-sm-8">
-              <label class="col-lg-3 control-label"><h4><b><span style="color:#fff;">Cliente:</span></b></h4></label>
+              <label class="col-lg-3 control-label"><h4><b><span>Cliente:</span></b></h4></label>
               <div class="input-group search-bar" style="width: 40%; margin-left: 20px;">
-                <input type="text" class="form-control" placeholder="Ingrese el cliente" [value]="afiliado.nombre" [(ngModel)]="afiliado.nombre" disabled>
+                <input type="text" class="form-control " placeholder="Buscar cliente" [value]="afiliado.nombre" [(ngModel)]="afiliado.nombre" disabled>
                 <span class="input-group-btn">
                   <div *ngIf="afiliado.nombre == ''">
                     <button class="btn btn-primary" (click)="modalClienteQR.open()"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -35,98 +36,118 @@
             </div>
 
             <div class="col-sm-4">
-              <label class="col-lg-3 control-label"><h4><b><span style="color:#fff;">Saldo:</span></b></h4></label>
+              <label class="col-lg-3 control-label"><h4><b><span>Saldo:</span></b></h4></label>
               <div class="col-lg-5">
-                <h4><b><span style="color:#fff;">${{ afiliado.saldo | number : '1.2-2' }}</span></b></h4>
+                <h4><b><span>${{ afiliado.saldo | number : '1.2-2' }}</span></b></h4>
               </div>
             </div>
 
           </div>
         </div>
       </div>
-      
+
+      <br>
+
       <div class="row">
         <div class="col-sm-6">
 
-          <label class="col-lg-5 control-label"><h3><span style="color:#fff;"><b>Listado de productos</b></span></h3></label><br>
-          <div class="input-group search-bar" style="width: 50%; margin-left: 20px;">
-            <input *ngIf="config.filtering" placeholder="Ingrese los datos del producto"
+        <div class="compra-container">
+        
+          <div class="compra-container-head">
+            <label class="col-lg-5 control-label"><h4><span><b>Producto:</b></span></h4></label>
+            <div class="input-group search-bar" style="width: 50%; margin-left: 20px;">
+            <input autofocus *ngIf="config.filtering" placeholder="Ingrese los datos del producto"
                     [ngTableFiltering]="config.filtering"
                     class="form-control" [(ngModel)]="datosProductos"
                     (tableChanged)="onChangeTable(config)"/>
+            </div>
           </div>
 
-          <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
+          <div class="compra-container-body">
+
+            <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
+            
+            <br><table class="table table-hovered" *ngIf="!datosCargados">
+              <thead>
+                <tr>
+                  <th *ngFor="let column of columns" (click)="sortByColumn(column)">{{column.titulo}}</th>
+                  <th>Agregar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of rows | paginate: { itemsPerPage: 4, currentPage: p, id: 'listaProductos' }">
+                  <td *ngFor="let column of columns">
+                    {{ getData(row, column) }}
+                  </td>
+                  <td>
+                    <button md-mini-fab class="mat-fab" (click)="agregarProductoDetalle(row.keyCat, row.categoria, row.keyPro, row.producto, row.precio)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                  </td>
+                </tr>
+                <tr *ngIf="rows.length == 0">
+                  <td colspan="4" style="text-align: center;"><b>No se encuentran resultados con:</b> "{{ datosProductos }}"</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- Pagination -->
+            <pagination-controls *ngIf="!datosCargados" (pageChange)="p = $event" id="listaProductos"></pagination-controls>
           
-          <br><table class="table table-hovered" *ngIf="!datosCargados">
-            <thead>
-              <tr>
-                <th *ngFor="let column of columns" (click)="sortByColumn(column)">{{column.titulo}}</th>
-                <th>Agregar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let row of rows | paginate: { itemsPerPage: 4, currentPage: p, id: 'listaProductos' }">
-                <td *ngFor="let column of columns">
-                  {{ getData(row, column) }}
-                </td>
-                <td>
-                  <button md-mini-fab class="mat-fab" (click)="agregarProductoDetalle(row.keyCat, row.categoria, row.keyPro, row.producto, row.precio)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </td>
-              </tr>
-              <tr *ngIf="rows.length == 0">
-                <td colspan="4" style="text-align: center;"><b>No se encuentran resultados con:</b> "{{ datosProductos }}"</td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- Pagination -->
-          <pagination-controls *ngIf="!datosCargados" (pageChange)="p = $event" id="listaProductos"></pagination-controls>
-          
+            </div>
+          </div>
         </div>
 
         <div class="col-sm-6">
-          <div *ngIf="afiliado.nombre == '' || afiliado.saldo == 0">
-            <h3><span style="color:#fff;"><b>Detalle de compra</b></span></h3>
+
+        <div class="compra-container">
+        
+          <div class="compra-container-head">
+            <div *ngIf="afiliado.nombre == '' || afiliado.saldo == 0">
+              <h4><span><b>Detalle de compra</b></span></h4>
+            </div>
+
+            <div *ngIf="afiliado.nombre !== '' && afiliado.saldo !== 0">
+              <h4><span><b>Detalle de compra del cliente: {{ afiliado.nombre }}</b></span></h4>
+            </div>
           </div>
 
-          <div *ngIf="afiliado.nombre !== '' && afiliado.saldo !== 0">
-            <h3><span style="color:#fff;"><b>Detalle de compra del cliente: {{ afiliado.nombre }}</b></span></h3>
+          <div class="compra-container-body">
+            <br><table class="table table-hovered">
+              <thead>
+                <tr>
+                  <th>Categoría</th>
+                  <th>Producto</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Total</th>
+                  <th>Eliminar</th>
+              </thead>  
+              
+              <tbody>
+                <tr *ngFor="let producDet of listaProductosDetalle | paginate: { itemsPerPage: 4, currentPage: page, id: 'listaProductosDetalle' } ; let in = index ">
+                  <td>{{ producDet.categoria }}</td>
+                  <td>{{ producDet.producto }}</td>
+                  <td>${{ producDet.precio }}</td>
+                  <td>
+                    <input type="number" class="form-control" [min]="1" [max]="10" name="cantidad-{{in}}" [(ngModel)]="producDet.cantidad" (input)="actualizarProductoDetalle($event.target.value)">
+                  </td>
+                  <td>${{ producDet.cantidad * producDet.precio | number : '1.2-2' }}</td>
+                  <td>
+                    <button class="btn btn-xs btn-danger" (click)="abrirModalEliminarDetalle(producDet.keyPro, producDet.producto, producDet.precio, producDet.cantidad)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="6" style="text-align: center;" *ngIf="listaProductosDetalle.length == 0">No se ha agregado ningún producto al detalle de compra.</td>
+                </tr>
+                <tr>
+                  <td colspan="6" class="colot-tr-table" *ngIf="listaProductosDetalle.length == 0">Total de la compra: $0.00</td>
+                  <td colspan="6" class="colot-tr-table" *ngIf="listaProductosDetalle.length !== 0">Total de la compra: ${{ compra.total | number : '1.2-2' }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- Pagination -->
+            <pagination-controls *ngIf="listaProductosDetalle.length != 0" (pageChange)="page = $event" id="listaProductosDetalle"></pagination-controls>
           </div>
-
-          <br><table class="table table-hovered">
-            <thead>
-              <tr>
-                <th>Categoría</th>
-                <th>Producto</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-                <th>Eliminar</th>
-            </thead>  
-            <tbody>
-              <tr *ngFor="let producDet of listaProductosDetalle | paginate: { itemsPerPage: 4, currentPage: page, id: 'listaProductosDetalle' } ; let in = index ">
-                <td>{{ producDet.categoria }}</td>
-                <td>{{ producDet.producto }}</td>
-                <td>${{ producDet.precio }}</td>
-                <td>
-                  <input type="number" class="form-control" [min]="1" [max]="10" name="cantidad-{{in}}" [(ngModel)]="producDet.cantidad" (input)="actualizarProductoDetalle($event.target.value)">
-                </td>
-                <td>${{ producDet.cantidad * producDet.precio | number : '1.2-2' }}</td>
-                <td>
-                  <button class="btn btn-xs btn-danger" (click)="abrirModalEliminarDetalle(producDet.keyPro, producDet.producto, producDet.precio, producDet.cantidad)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="6" style="text-align: center;" *ngIf="listaProductosDetalle.length == 0">No se ha agregado ningún producto al detalle de compra.</td>
-              </tr>
-              <tr>
-                <td colspan="6" class="colot-tr-table" *ngIf="listaProductosDetalle.length == 0">Total de la compra: $0.00</td>
-                <td colspan="6" class="colot-tr-table" *ngIf="listaProductosDetalle.length !== 0">Total de la compra: ${{ compra.total | number : '1.2-2' }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- Pagination -->
-          <pagination-controls *ngIf="listaProductosDetalle.length != 0" (pageChange)="page = $event" id="listaProductosDetalle"></pagination-controls>
+        </div>
+          
         </div>
 
       </div>
