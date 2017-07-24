@@ -3,7 +3,7 @@
 <nav class="navbar navbar-toggleable-md navbar-inverse bg-faded">
   <div class ="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand"  routerLink="/menu-proveedor"><i class="fa fa-glass" aria-hidden="true"></i> EasyPayBar</a>
+      <a class="navbar-brand" routerLink="/menu-proveedor"><img class="nav-img" src="assets/img/icono-nav.png"></a>
 
         <button type="button" style="width: 10%;" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed">
           <i class="fa fa-bars" aria-hidden="true"></i>
@@ -14,16 +14,17 @@
     <!-- <div id="navcol-1" class="navbar-collapse collapse" [collapse]="isCollapsed"> -->
 
      <div id="navcol-1" class="navbar-collapse collapse" [collapse]="isCollapsed">
-  <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav">
        <!--
         <li class="nav-item"><a routerLink="/menu-proveedor">Proveedor</a></li>
 
         -->
-  <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/proveedor', id, 'categoria']">Categorias</a></li> 
-  <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/afiliado', id]">Afiliados</a></li>
-  <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/proveedor', id, 'compras']">Compra</a></li>
-     
-  </ul>
+          <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/proveedor', id, 'categoria']"><i class="fa fa-list" aria-hidden="true"></i> Categorías</a></li> 
+          <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/afiliado', id]"><i class="fa fa-address-card-o" aria-hidden="true"></i> Afiliados</a></li>
+          <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/proveedor', id, 'compras']"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Compras</a></li>
+          <li *ngIf="proveedor" class="nav-item" ><a [routerLink]="['/proveedor', id, 'perfil-bar']"><i class="fa fa-pencil" aria-hidden="true"></i> Perfil</a></li>
+          
+        </ul>
 
 
 

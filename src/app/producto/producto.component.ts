@@ -53,6 +53,8 @@ export class ProductoComponent implements OnInit {
   producto: Producto = new Producto();
   productos: FirebaseListObservable<Producto[]>;
   datosCargados: boolean;
+
+  // Variable para validar el tamaño de la imagen.
   private imagenValidada: boolean = true;
 
   constructor(private productoServicio: ProductoService, public af: AngularFire, private route: ActivatedRoute) {
@@ -89,7 +91,10 @@ export class ProductoComponent implements OnInit {
       // La imagen se transforma a KB.
       var imagenKB = dimesionImagen.size / 1024;
 
-      if (imagenKB > 150) {
+      // Tamaño de la imagen permitida por la aplicación en KB.
+      var imagenPermitida = 150;
+
+      if (imagenKB > imagenPermitida) {
         this.imagenValidada = false;
       } else {
         this.imagenValidada = true;
@@ -186,34 +191,36 @@ export class ProductoComponent implements OnInit {
   openModalProductoCrear() {
     this.modalCrear.open();
     this.producto = new Producto();
+    this.producto.comentar = false;
   }
 
-  openModalProductoEliminar(id, nombre: string, precio: number, veces: number, imagen: string) {
+  openModalProductoEliminar(id, product: Producto) {
     this.key = id;
-    this.producto.nombre = nombre;
-    this.producto.precio = precio;
-    this.producto.veces = veces;
-    this.producto.imagen = imagen;
+    this.producto.nombre = product.nombre;
+    this.producto.precio = product.precio;
+    this.producto.veces = product.veces;
+    this.producto.imagen = product.imagen;
     this.modalEliminar.open();
   }
 
-  openModalProductoEditar(id, nombre: string, precio: number, veces: number, imagen: string, imagenURL: string) {
+  openModalProductoEditar(id, product: Producto) {
     this.imagenValidada = true;
     this.key = id;
-    this.producto.nombre = nombre;
-    this.producto.precio = precio;
-    this.producto.veces = veces;
-    this.producto.imagen = imagen;
-    this.producto.imagenURL = imagenURL;
+    this.producto.nombre = product.nombre;
+    this.producto.precio = product.precio;
+    this.producto.veces = product.veces;
+    this.producto.imagen = product.imagen;
+    this.producto.imagenURL = product.imagenURL;
+    this.producto.comentar = product.comentar;
     this.modalModificar.open();
   }
 
-  openModalProductoVerDetalle(id, nombre: string, precio: number, veces: number, imagenURL: string) {
+  openModalProductoVerDetalle(id, product: Producto) {
     this.key = id;
-    this.producto.nombre = nombre;
-    this.producto.precio = precio;
-    this.producto.veces = veces;
-    this.producto.imagenURL = imagenURL;
+    this.producto.nombre = product.nombre;
+    this.producto.precio = product.precio;
+    this.producto.veces = product.veces;
+    this.producto.imagenURL = product.imagenURL;
     this.modalProductoVerDetalle.open();
   }
 }
