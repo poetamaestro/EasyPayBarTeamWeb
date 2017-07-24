@@ -34,11 +34,11 @@
               <h6>${{produc.precio}}</h6>
             </div>
             <div class="product-bottom top-line-black">
-              <button class="btn btn-xs btn-primary" (click)="openModalProductoVerDetalle(produc.$key, produc.nombre, produc.precio, produc.veces, produc.imagenURL)"><i class="fa fa-eye" aria-hidden="true"></i>
+              <button class="btn btn-xs btn-primary" (click)="openModalProductoVerDetalle(produc.$key, produc)"><i class="fa fa-eye" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-xs btn-success" (click)="openModalProductoEditar(produc.$key, produc.nombre, produc.precio, produc.veces, produc.imagen, produc.imagenURL)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              <button class="btn btn-xs btn-success" (click)="openModalProductoEditar(produc.$key, produc)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-xs btn-danger" (click)="openModalProductoEliminar(produc.$key, produc.nombre, produc.precio, produc.veces, produc.imagen)"><i class="fa fa-trash-o" aria-hidden="true"></i>
+              <button class="btn btn-xs btn-danger" (click)="openModalProductoEliminar(produc.$key, produc)"><i class="fa fa-trash-o" aria-hidden="true"></i>
               </button>
             </div>
           </div>
@@ -146,6 +146,11 @@
         <span style="color:#e74c3c;" *ngIf="!imagenValidada"><p>El tamaño de la imagen debe ser menor a 150 KB.</p></span>
       </div>
     </div>
+
+    <div class="form-group">
+      <label class="col-lg-3 control-label"><h5><b>Comentario: <md-checkbox [(ngModel)]="producto.comentar"></md-checkbox></b></h5></label>
+    </div>
+
   </modal-body>
   <modal-footer>
     <div *ngIf="nombre.errors || precio.errors || !imagenValidada">
@@ -184,10 +189,13 @@
     <div class="form-group">
       <label class="col-lg-2 control-label"><h5><b>Imagen:</b></h5></label>
       <div class="col-lg-9">
-        <p align="center"><img src="{{producto.imagenURL}}" alt="Producto" width="250" height="250"></p> 
+        <p align="center"><img src="{{producto.imagenURL}}" alt="Producto" width="200" height="200"></p> 
         <input type="file" name="file" id="file" (change)="seleccionarImagen($event)">
         <span style="color:#e74c3c;" *ngIf="!imagenValidada"><p>El tamaño de la imagen debe ser menor a 150 KB.</p></span>
       </div>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-3 control-label"><h5><b>Comentario: <md-checkbox [(ngModel)]="producto.comentar" [checked]="producto.comentar"></md-checkbox></b></h5></label>
     </div>
   </modal-body>
   <modal-footer>

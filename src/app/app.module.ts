@@ -38,7 +38,7 @@ import { MenuProveedorComponent } from './menu-proveedor/menu-proveedor.componen
 import { NavConsumidorComponent } from './nav-consumidor/nav-consumidor.component';
 import { AfiliadoComponent } from './afiliado/afiliado.component';
 import { PerfilBarComponent } from './perfil-bar/perfil-bar.component';
-import { MdButtonModule, MdAutocompleteModule, MdOptionModule } from '@angular/material';
+import { MdButtonModule, MdAutocompleteModule, MdOptionModule, MdCheckboxModule } from '@angular/material';
 import 'hammerjs';
 
 @NgModule({
@@ -85,6 +85,7 @@ import 'hammerjs';
     MdButtonModule,
     MdAutocompleteModule,
     MdOptionModule,
+    MdCheckboxModule,
     NgbModule.forRoot(),
     routes,
     AngularFireModule.initializeApp(firebaseConfig),
