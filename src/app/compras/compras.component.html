@@ -56,7 +56,7 @@
           <div class="compra-container-head">
             <label class="col-lg-5 control-label"><h4><span><b>Producto:</b></span></h4></label>
             <div class="input-group search-bar" style="width: 50%; margin-left: 20px;">
-            <input autofocus *ngIf="config.filtering" placeholder="Ingrese los datos del producto"
+            <input autofocus *ngIf="config.filtering" placeholder="Ingrese el producto"
                     [ngTableFiltering]="config.filtering"
                     class="form-control" [(ngModel)]="datosProductos"
                     (tableChanged)="onChangeTable(config)"/>
