@@ -15,9 +15,10 @@ export class ProveedorService {
     this.proveedores = db.list('/proveedor');
   }
 
-  crear(nom: string, codQR: string, nombreBar: string, imagenFile, URL: string): void {
+  crear(nom: string, codQR: string, nombreBar: string, claveBar: string, imagenFile, URL: string): void {
     firebase.database().ref('proveedor/' + codQR).set({
       bar: nombreBar,
+      clave: claveBar,
       codigoQR: codQR,
       nombre: nom,
       imagen: imagenFile,
@@ -57,6 +58,10 @@ export class ProveedorService {
 
   cambiarBar(ProveedorId: string, nombreBar: string){
     this.db.object('/proveedor/'+ProveedorId).update({ bar: nombreBar});
+  }
+
+  cambiarClave(ProveedorId: string, claveBar: string){
+    this.db.object('/proveedor/'+ProveedorId).update({ clave: claveBar});
   }
 
   cambiarImagen(ProveedorId: string, imagen: string, imagenURL: string){
