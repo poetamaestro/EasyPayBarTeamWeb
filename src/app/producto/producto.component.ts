@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Producto } from './../typeScript/producto';
 import { ProductoService } from '../service/producto.service';
+import { ProveedorPreferenciasService } from '../service/preferencias.service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -19,7 +20,7 @@ interface Image {
   selector: 'app-producto',
   templateUrl: './producto.component.html',
   styleUrls: ['./producto.component.css'],
-  providers: [ProductoService]
+  providers: [ProductoService, ProveedorPreferenciasService]
 })
 
 export class ProductoComponent implements OnInit {
@@ -57,7 +58,8 @@ export class ProductoComponent implements OnInit {
   // Variable para validar el tamaño de la imagen.
   private imagenValidada: boolean = true;
 
-  constructor(private productoServicio: ProductoService, public af: AngularFire, private route: ActivatedRoute) {
+  constructor(private productoServicio: ProductoService, public af: AngularFire, private route: ActivatedRoute,
+    private preferenciasServicio: ProveedorPreferenciasService) {
     this.datosCargados = true;
 
     this.productos = this.productoServicio.getProductos(this.idPro, this.idCat);
@@ -162,6 +164,10 @@ export class ProductoComponent implements OnInit {
       const imagenURL = 'https://firebasestorage.googleapis.com/v0/b/easypaybar.appspot.com/o/' +
         'productos%2Fproducto_default.jpg?alt=media&token=07c0c51e-b277-4c0a-b739-ce79af920ee6';
       this.productoServicio.actualizarProductoDefault(this.idPro, this.idCat, this.key, this.producto, imagenPath, imagenURL);
+
+      // Se actualiza el prodcuto favorito
+      this.preferenciasServicio.actualizarProductosFavoritos(this.idPro, this.idCat, this.key, this.producto, 
+        imagenURL);
     } else {  // Subir producto con imagen seleccionada
       // Subir la nueva imagen
       const storageRef = firebase.storage().ref();
@@ -171,9 +177,20 @@ export class ProductoComponent implements OnInit {
 
       uploadTask.then((snapshot) => {
         pathRef.getDownloadURL().then(url =>
-          this.productoServicio.actualizarProducto(this.idPro, this.idCat, this.key, this.producto, this.file, url)
+          this.productoServicio.actualizarProducto(this.idPro, this.idCat, this.key, this.producto, 
+            this.file, url)
+
         );
       });
+
+      // Se actualiza el prodcuto favorito
+      uploadTask.then((snapshot) => {
+        pathRef.getDownloadURL().then(url =>
+          this.preferenciasServicio.actualizarProductosFavoritos(this.idPro, this.idCat, this.key, 
+            this.producto, url)
+        );
+      });
+
     }
   }
 

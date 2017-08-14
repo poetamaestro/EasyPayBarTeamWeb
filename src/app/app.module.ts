@@ -38,6 +38,7 @@ import { MenuProveedorComponent } from './menu-proveedor/menu-proveedor.componen
 import { NavConsumidorComponent } from './nav-consumidor/nav-consumidor.component';
 import { AfiliadoComponent } from './afiliado/afiliado.component';
 import { PerfilBarComponent } from './perfil-bar/perfil-bar.component';
+import { ProveedorPreferenciasComponent } from './proveedor-preferencias/proveedor-preferencias.component';
 import { MdButtonModule, MdAutocompleteModule, MdOptionModule, MdCheckboxModule } from '@angular/material';
 import 'hammerjs';
 
@@ -59,7 +60,7 @@ import 'hammerjs';
     CategoriaComponent,
     ProductoComponent,
     PerfilBarComponent,
-
+    ProveedorPreferenciasComponent,
     CollapseDirective,
 
     NavProveedorComponent,
@@ -90,7 +91,7 @@ import 'hammerjs';
     routes,
     AngularFireModule.initializeApp(firebaseConfig),
     DropdownModule.forRoot(),
-     ResponsiveModule,
+    ResponsiveModule,
     Angular2FontAwesomeModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -98,7 +99,3 @@ import 'hammerjs';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-
-//clave internet 
-// v%|iS%m%NGo7
