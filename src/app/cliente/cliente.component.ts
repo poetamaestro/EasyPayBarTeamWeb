@@ -84,7 +84,7 @@ export class ClienteComponent implements OnInit {
         const imagenURL = 'https://firebasestorage.googleapis.com/v0/b/easypaybar.appspot.com/o/' +
         'productos%2Fproducto_default.jpg?alt=media&token=07c0c51e-b277-4c0a-b739-ce79af920ee6';
         this.proveedorServicio.crear(this.cliente.nombre, 
-          this.cliente.codigoQR, this.proveedor.bar, imagenPath, imagenURL);
+          this.cliente.codigoQR, this.proveedor.bar, "clavePorDefecto", imagenPath, imagenURL);
 
       } else {
         this.mensajeError = 'Este usuario ya esta promovido como Proveedor.';
