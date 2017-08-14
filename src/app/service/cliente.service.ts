@@ -39,16 +39,24 @@ export class ClienteService {
     this.cliente.estado = true;
     this.cliente.proveedor = false;
     this.cliente.admin = false;
-    this.cliente.fecha_Afiliacion =  new Date().toLocaleDateString();
+    this.cliente.fecha_Afiliacion = new Date().toLocaleDateString();
   }
 
   getCliente(nombre) {
     return this.db.list('/cliente', {
       query: {
         orderByChild: 'nombre',
-        equalTo : nombre
+        equalTo: nombre
       }
     });
   }
 
+  getClienteBy(codigoQR: string) {
+    return this.db.list('/cliente', {
+      query: {
+        orderByChild: 'codigoQR',
+        equalTo: codigoQR
+      }
+    }); 
+  }
 }
