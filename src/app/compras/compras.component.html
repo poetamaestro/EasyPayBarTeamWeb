@@ -52,46 +52,98 @@
         <div class="col-sm-6">
 
         <div class="compra-container">
-        
-          <div class="compra-container-head">
-            <label class="col-lg-5 control-label"><h4><span><b>Producto:</b></span></h4></label>
-            <div class="input-group search-bar" style="width: 50%; margin-left: 20px;">
-            <input autofocus *ngIf="config.filtering" placeholder="Ingrese el producto"
-                    [ngTableFiltering]="config.filtering"
-                    class="form-control" [(ngModel)]="datosProductos"
-                    (tableChanged)="onChangeTable(config)"/>
-            </div>
-          </div>
+          <md-tab-group (selectChange)="cambiarProductos($event)">
+  			<md-tab>
+    		    <ng-template md-tab-label>
+    		    	<b><i class="fa fa-star" aria-hidden="true"></i> Favoritos</b>
+    		    </ng-template>
+    		    <div class="compra-container-head"><br>
+		            <label class="col-lg-5 control-label"><h4><span><b>Producto:</b></span></h4></label>
+		            <div class="input-group search-bar" style="width: 50%; margin-left: 20px;">
+		            <input autofocus *ngIf="config.filtering" placeholder="Ingrese el producto"
+		                    [ngTableFiltering]="config.filtering"
+		                    class="form-control" [(ngModel)]="datosProductos"
+		                    (tableChanged)="onChangeTable(config)"/>
+		            </div>
+	          	</div>
 
-          <div class="compra-container-body">
+	          	<div class="compra-container-body">
 
-            <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
-            
-            <br><table class="table table-hovered" *ngIf="!datosCargados">
-              <thead>
-                <tr>
-                  <th *ngFor="let column of columns" (click)="sortByColumn(column)">{{column.titulo}}</th>
-                  <th>Agregar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let row of rows | paginate: { itemsPerPage: 4, currentPage: p, id: 'listaProductos' }">
-                  <td *ngFor="let column of columns">
-                    {{ getData(row, column) }}
-                  </td>
-                  <td>
-                    <button md-mini-fab class="mat-fab" (click)="agregarProductoDetalle(row.categoriaId, row.categoria, row.productoId, row.producto, row.precio)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                  </td>
-                </tr>
-                <tr *ngIf="rows.length == 0">
-                  <td colspan="4" style="text-align: center;"><b>No se encuentran resultados con:</b> "{{ datosProductos }}"</td>
-                </tr>
-              </tbody>
-            </table>
-            <!-- Pagination -->
-            <pagination-controls *ngIf="!datosCargados" (pageChange)="p = $event" id="listaProductos"></pagination-controls>
+	            <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
+	            
+	            <br><table class="table table-hovered" *ngIf="!datosCargados">
+	              <thead>
+	                <tr>
+	                  <th *ngFor="let column of columns" (click)="sortByColumn(column)">{{column.titulo}}</th>
+	                  <th>Agregar</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr *ngFor="let row of rows | paginate: { itemsPerPage: 3, currentPage: p, id: 'listaProductos' }">
+	                  <td *ngFor="let column of columns">
+	                    {{ getData(row, column) }}
+	                  </td>
+	                  <td>
+	                    <button md-mini-fab class="mat-fab" (click)="agregarProductoDetalle(row.categoriaId, row.categoria, row.productoId, row.producto, row.precio)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+	                  </td>
+	                </tr>
+	                <tr *ngIf="rows.length == 0">
+	                  <td colspan="4" style="text-align: center;"><b>No se encuentran resultados con:</b> "{{ datosProductos }}"</td>
+	                </tr>
+	              </tbody>
+	            </table>
+	            
+	            <pagination-controls *ngIf="!datosCargados" (pageChange)="p = $event" id="listaProductos"></pagination-controls>
+	          
+	            </div>
+    			
+  			</md-tab>
+  			<md-tab>
+    			<ng-template md-tab-label>
+      				<b><i class="fa fa-cutlery" aria-hidden="true"></i> Todos los productos</b>
+    			</ng-template>
+    			<div class="compra-container-head"><br>
+		            <label class="col-lg-5 control-label"><h4><span><b>Producto:</b></span></h4></label>
+		            <div class="input-group search-bar" style="width: 50%; margin-left: 20px;">
+		            <input autofocus *ngIf="config.filtering" placeholder="Ingrese el producto"
+		                    [ngTableFiltering]="config.filtering"
+		                    class="form-control" [(ngModel)]="datosProductos"
+		                    (tableChanged)="onChangeTable(config)"/>
+		            </div>
+	          	</div>
+
+	          	<div class="compra-container-body">
+
+	            <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-loading" *ngIf="datosCargados"></i>
+	            
+	            <br><table class="table table-hovered" *ngIf="!datosCargados">
+	              <thead>
+	                <tr>
+	                  <th *ngFor="let column of columns" (click)="sortByColumn(column)">{{column.titulo}}</th>
+	                  <th>Agregar</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr *ngFor="let row of rows | paginate: { itemsPerPage: 3, currentPage: p, id: 'listaProductos' }">
+	                  <td *ngFor="let column of columns">
+	                    {{ getData(row, column) }}
+	                  </td>
+	                  <td>
+	                    <button md-mini-fab class="mat-fab" (click)="agregarProductoDetalle(row.categoriaId, row.categoria, row.productoId, row.producto, row.precio)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+	                  </td>
+	                </tr>
+	                <tr *ngIf="rows.length == 0">
+	                  <td colspan="4" style="text-align: center;"><b>No se encuentran resultados con:</b> "{{ datosProductos }}"</td>
+	                </tr>
+	              </tbody>
+	            </table>
+	            
+	            <pagination-controls *ngIf="!datosCargados" (pageChange)="p = $event" id="listaProductos"></pagination-controls>
+	          
+	            </div>
+  			</md-tab>
+		  </md-tab-group>
           
-            </div>
           </div>
         </div>
 
