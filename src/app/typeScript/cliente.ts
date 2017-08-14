@@ -1,13 +1,17 @@
 export class Cliente {
 
-	key: string;
+	admin: boolean;
 	codigoQR: string;
 	estado: boolean;
 	fecha_Afiliacion: string;
-	fecha_Nacimiento: Date;
 	nombre: string;
 	proveedor: boolean;
-	admin: boolean;
+	ping: string;
+	pingTemporal: string;
+
+
+	key: string;
+	fecha_Nacimiento: Date;
 	saldo: number;
 
 	constructor(values: Object = {}) {

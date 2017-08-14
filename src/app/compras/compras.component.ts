@@ -1,3 +1,5 @@
+import { Cliente } from './../typeScript/cliente';
+import { ClienteService } from './../service/cliente.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductoService } from '../service/producto.service';
 import { Producto } from './../typeScript/producto';
@@ -25,8 +27,8 @@ interface Column {
   selector: 'app-compras',
   templateUrl: './compras.component.html',
   styleUrls: ['./compras.component.css'],
-  providers: [ProductoService, CategoriaService, CompraService, AfiliadoService,
-  {provide: PaginationConfig, useValue: { boundaryLinks: true,  firstText: 'First', previousText: '&lsaquo;', nextText: '&rsaquo;', lastText: 'Last', maxSize: 1 }}]
+  providers: [ClienteService, ProductoService, CategoriaService, CompraService, AfiliadoService,
+    { provide: PaginationConfig, useValue: { boundaryLinks: true, firstText: 'First', previousText: '&lsaquo;', nextText: '&rsaquo;', lastText: 'Last', maxSize: 1 } }]
 })
 export class ComprasComponent implements OnInit {
 
@@ -54,6 +56,9 @@ export class ComprasComponent implements OnInit {
   @ViewChild('modalCancelarCompra')
   modalCancelarCompra: ModalComponent;
 
+  @ViewChild('modalFalloSeguridad')
+  modalFalloSeguridad: ModalComponent;
+
   producto: Producto = new Producto();
   productos: FirebaseListObservable<Producto[]>;
   categorias: FirebaseListObservable<Categoria[]>;
@@ -61,6 +66,8 @@ export class ComprasComponent implements OnInit {
   compra: Compra = new Compra();
   afiliados: FirebaseListObservable<Afiliado[]>;
   afiliado: Afiliado = new Afiliado();
+  clientes: FirebaseListObservable<Cliente[]>;
+  cliente: Cliente = new Cliente();
   detalleCompra: DetalleCompra = new DetalleCompra();
   date: DatePipe = new DatePipe("en-US");
 
@@ -69,13 +76,14 @@ export class ComprasComponent implements OnInit {
   private listaProductosDetalle = [];
   private datosProductos: string;
   private datosCargados: boolean;
+  private IsQrScanning: boolean = false;
 
   // atributos de la tabla
   public rows: Array<any> = [];
   public columns: Array<any> = [
-    {titulo: 'Categoría', nombre: 'categoria'},
-    {titulo: 'Producto', nombre: 'producto'},
-    {titulo: 'Precio', nombre: 'precio'}
+    { titulo: 'Categoría', nombre: 'categoria' },
+    { titulo: 'Producto', nombre: 'producto' },
+    { titulo: 'Precio', nombre: 'precio' }
   ];
   private data: Array<any> = [];
 
@@ -88,27 +96,27 @@ export class ComprasComponent implements OnInit {
 
   public config: any = {
     paging: true,
-    sorting: {columns: this.columns},
-    filtering: {filterString: ''},
+    sorting: { columns: this.columns },
+    filtering: { filterString: '' },
     className: ['table table-hovered']
   };
 
-  constructor(private productoServicio: ProductoService, private route: ActivatedRoute,
+  constructor(private clienteServicio: ClienteService, private productoServicio: ProductoService, private route: ActivatedRoute,
     private categoriaServicio: CategoriaService, private afiliadoService: AfiliadoService,
-    private compraServicio: CompraService, private db: AngularFireDatabase, private router: Router) { 
+    private compraServicio: CompraService, private db: AngularFireDatabase, private router: Router) {
     this.length = this.data.length;
     this.datosCargados = true;
 
     this.categorias = this.categoriaServicio.getCategorias(this.idPro);
 
     this.categorias.subscribe(data => {
-        this.datosCargados = false;
+      this.datosCargados = false;
     });
   }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-       this.idPro = params['id'];
+      this.idPro = params['id'];
     });
     this.getAfiliados();
     this.obtenerListaCategoriaProducto();
@@ -127,10 +135,10 @@ export class ComprasComponent implements OnInit {
     }).first();
 
     queryObservable.subscribe(queriedItems => {
-      if(queriedItems.length > 0) {
+      if (queriedItems.length > 0) {
         this.afiliado.nombre = queriedItems[0].nombre;
       }
-    }); 
+    });
   }
 
   obtenerListaCategoriaProducto() {
@@ -141,17 +149,19 @@ export class ComprasComponent implements OnInit {
     }).first();
 
     categoriaObservable.subscribe(categoriaItems => {
-      if(categoriaItems.length > 0) {
+      if (categoriaItems.length > 0) {
         for (var i = 0; i < categoriaItems.length; i++) {
           var keyProductos: Array<any> = categoriaItems[i].producto;
           for (var keyPro in keyProductos) {
-            this.data.push({ keyCat: categoriaItems[i].$key, categoria: categoriaItems[i].nombre,
-             keyPro: keyPro, producto: keyProductos[keyPro].nombre, precio: keyProductos[keyPro].precio });
+            this.data.push({
+              keyCat: categoriaItems[i].$key, categoria: categoriaItems[i].nombre,
+              keyPro: keyPro, producto: keyProductos[keyPro].nombre, precio: keyProductos[keyPro].precio
+            });
             this.onChangeTable(this.config);
           }
         }
-      } 
-    }); 
+      }
+    });
   }
 
   getAfiliados(): void {
@@ -164,7 +174,7 @@ export class ComprasComponent implements OnInit {
       this.afiliado.saldo = 0;
     } else {
       this.obtenerSaldoAfiliado(this.afiliado.key);
-    }    
+    }
   }
 
   obtenerSaldoAfiliado(key) {
@@ -205,7 +215,7 @@ export class ComprasComponent implements OnInit {
             var veces = queriedItems[i].veces + cantidad;
             this.productoServicio.actualizarVecesCompradas(this.idPro, idCategoria, idProducto, veces);
           }
-        }        
+        }
       }
     });
   }
@@ -230,29 +240,29 @@ export class ComprasComponent implements OnInit {
             var saldoTotal = queriedItems[0].saldo - this.compra.total;
             this.afiliadoService.actualizarSaldo(this.idPro, saldoTotal, this.afiliado.key);
             for (var i = 0; i < this.listaProductosDetalle.length; i++) {
-              this.actualizarVecesCompradas(this.listaProductosDetalle[i].cantidad, 
+              this.actualizarVecesCompradas(this.listaProductosDetalle[i].cantidad,
                 this.listaProductosDetalle[i].keyPro, this.listaProductosDetalle[i].keyCat);
             }
-          }  
+          }
         }
       });
     }
   }
 
   redireccionarDetalleCompra(ultimoKeyAgregado: string) {
-    this.router.navigateByUrl('/proveedor/' + this.idPro + '/afiliado/' + this.afiliado.key + 
+    this.router.navigateByUrl('/proveedor/' + this.idPro + '/afiliado/' + this.afiliado.key +
       '/compra/' + ultimoKeyAgregado + '/detalle');
   }
 
   agregarCompra(idProveedor, idAfiliado, detalle: Array<DetalleCompra>, nuevaCompra: Compra) {
     nuevaCompra.detalleCompra = detalle;
-    var ultimoKeyAgregado = firebase.database().ref('/proveedor/' + idProveedor + '/afiliados/' 
+    var ultimoKeyAgregado = firebase.database().ref('/proveedor/' + idProveedor + '/afiliados/'
       + idAfiliado + '/compras').push(nuevaCompra).key;
     this.redireccionarDetalleCompra(ultimoKeyAgregado);
   }
 
   guardarCompra() {
-    this.compra.fecha_Compra =  this.date.transform(new Date(), 'dd/MM/yyyy');
+    this.compra.fecha_Compra = this.date.transform(new Date(), 'dd/MM/yyyy');
     this.agregarCompra(this.idPro, this.afiliado.key, this.listaProductosDetalle, this.compra);
     this.modalCompraExitosa.open();
   }
@@ -262,8 +272,10 @@ export class ComprasComponent implements OnInit {
     if (indice >= 0) {
       this.modalProductoExistente.open();
     } else {
-      var producto = { keyPro: keyPro, keyCat: keyCat, categoria: categoria, producto: produ, 
-        precio: precio, cantidad: 1 };
+      var producto = {
+        keyPro: keyPro, keyCat: keyCat, categoria: categoria, producto: produ,
+        precio: precio, cantidad: 1
+      };
       this.listaProductosDetalle.push(producto);
       this.calcularTotal();
     }
@@ -297,11 +309,32 @@ export class ComprasComponent implements OnInit {
   }
 
   leerCodigoQRCliente(codigoQR: string) {
-    this.obtenerIdCliente(codigoQR);
-    this.buscarAfiliado();
-    if (codigoQR !== "") {
-      this.modalClienteQR.close();
-    }
+    var clienteKey = codigoQR.split(",")[0];
+    var pingTemporal = codigoQR.split(",")[1];
+    this.clientes = this.clienteServicio.getClienteBy(clienteKey);
+    this.clientes.subscribe(item => {
+      this.cliente = item[0];
+      if (this.IsQrScanning) {
+        if (this.cliente.pingTemporal === pingTemporal) {
+          this.obtenerIdCliente(clienteKey);
+          this.buscarAfiliado();
+          if (codigoQR !== "") {
+            this.IsQrScanning = false;
+            this.modalClienteQR.close();
+          }
+        } else {
+          this.modalFalloSeguridad.open();
+          if (codigoQR !== "") {
+            this.IsQrScanning = false;
+            this.modalClienteQR.close();
+          }
+        }
+        this.clientes = null;
+        this.cliente = null;
+        pingTemporal = null;
+        clienteKey = null;
+      }
+    });
   }
 
   abirConfirmarCompra() {
@@ -375,13 +408,13 @@ export class ComprasComponent implements OnInit {
       let flag = false;
       this.columns.forEach((column: any) => {
         if (item[column.nombre].toString()
-                             .match(this.config.filtering.filterString) || 
+          .match(this.config.filtering.filterString) ||
 
-                             item[column.nombre].toString().toLowerCase()
-                             .match(this.config.filtering.filterString) ||
+          item[column.nombre].toString().toLowerCase()
+            .match(this.config.filtering.filterString) ||
 
-                             item[column.nombre].toString().toUpperCase()
-                             .match(this.config.filtering.filterString)) {
+          item[column.nombre].toString().toUpperCase()
+            .match(this.config.filtering.filterString)) {
           flag = true;
         }
       });
@@ -395,7 +428,7 @@ export class ComprasComponent implements OnInit {
   }
 
   public onChangeTable(config: any, pageNumber?: number): any {
-    const page : {itemsPerPage: number, page: number} = {
+    const page: { itemsPerPage: number, page: number } = {
       itemsPerPage: this.itemsPerPage,
       page: pageNumber ? pageNumber : 1
     };
@@ -423,7 +456,7 @@ export class ComprasComponent implements OnInit {
       return '$' + row[column.nombre];
     } else {
       return row[column.nombre];
-    } 
+    }
   }
 
   public sortByColumn(columnToSort: Column) {
@@ -434,16 +467,21 @@ export class ComprasComponent implements OnInit {
         const newSort = column.sort === 'asc'
           ? 'desc'
           : 'asc';
-        return Object.assign(column, {sort: newSort});
+        return Object.assign(column, { sort: newSort });
       } else {
-        return Object.assign(column, {sort: ''});
+        return Object.assign(column, { sort: '' });
       }
     });
 
     const config = Object.assign({}, this.config, {
-      sorting: {columns: sorted}
+      sorting: { columns: sorted }
     });
     this.onChangeTable(config);
+  }
+
+  openModalFalloSeguridad() {
+    this.IsQrScanning = true;
+    this.modalClienteQR.open();
   }
 
 }

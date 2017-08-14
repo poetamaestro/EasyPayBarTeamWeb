@@ -26,7 +26,7 @@
                 <input type="text" class="form-control " placeholder="Buscar cliente" [value]="afiliado.nombre" [(ngModel)]="afiliado.nombre" disabled>
                 <span class="input-group-btn">
                   <div *ngIf="afiliado.nombre == ''">
-                    <button class="btn btn-primary" (click)="modalClienteQR.open()"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <button class="btn btn-primary" (click)="openModalFalloSeguridad()"><i class="fa fa-search" aria-hidden="true"></i></button>
                   </div>
                   <div *ngIf="afiliado.nombre != ''">
                     <button class="btn btn-primary" disabled><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -314,7 +314,7 @@
   <modal-body>
     <div class="form-group">
       <h5>Muestre el codigo QR a la camara</h5>
-      <qr-scanner
+      <qr-scanner *ngIf="IsQrScanning"
         [debug]="false"        
         [canvasWidth]="300"    
         [canvasHeight]="300"   
@@ -323,6 +323,22 @@
         [updateTime]="500"     
         (onRead)="leerCodigoQRCliente($event)">
       </qr-scanner>
+    </div>    
+  </modal-body>
+
+  <modal-footer style="text-align: center;">
+    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
+  </modal-footer>
+</modal>
+
+<modal #modalFalloSeguridad>
+  <modal-header>
+    <h4 class="modal-title">Error al validar el usuario.</h4>        
+  </modal-header>
+
+  <modal-body>
+    <div class="form-group">
+      <h5>No se pudo validar el cliente por medio del Codigo QR.</h5>
     </div>    
   </modal-body>
 
