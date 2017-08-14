@@ -116,7 +116,7 @@ export class ComprasComponent implements OnInit {
       this.idPro = params['id'];
     });
     this.getAfiliados();
-    this.obtenerListaCategoriaProducto();
+    this.obtenerListaProductosFavoritos();
     this.afiliado.saldo = 0;
     this.categoria.nombre = "";
     this.afiliado.nombre = "";
@@ -139,6 +139,7 @@ export class ComprasComponent implements OnInit {
   }
 
   obtenerListaCategoriaProducto() {
+    this.data = [];
     const categoriaObservable = this.db.list('/proveedor/' + this.idPro + '/categoria', {
       query: {
         orderByChild: 'nombre'
@@ -157,6 +158,34 @@ export class ComprasComponent implements OnInit {
         }
       }
     });
+  }
+
+  obtenerListaProductosFavoritos() {
+    this.data = [];
+    const favoritosObservable = this.db.list('/proveedor/' + this.idPro + '/favoritos', {
+      query: {
+        orderByChild: 'categoriaId'
+      }
+    }).first();
+
+    favoritosObservable.subscribe(favoritosItems => {
+      if(favoritosItems.length > 0) {
+        for (var i = 0; i < favoritosItems.length; i++) {
+          this.data.push({ categoriaId: favoritosItems[i].categoriaId, categoria: favoritosItems[i].categoria,
+             productoId: favoritosItems[i].productoId, producto: favoritosItems[i].producto, 
+             precio: favoritosItems[i].precio });
+          this.onChangeTable(this.config);
+        }
+      } 
+    });  
+  }
+
+  cambiarProductos(evento) {
+    if (evento.index == 0) {
+      this.obtenerListaProductosFavoritos();
+    } else if (evento.index == 1) {
+      this.obtenerListaCategoriaProducto();
+    }
   }
 
   getAfiliados(): void {

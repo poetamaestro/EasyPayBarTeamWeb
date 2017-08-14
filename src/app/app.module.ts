@@ -39,7 +39,7 @@ import { NavConsumidorComponent } from './nav-consumidor/nav-consumidor.componen
 import { AfiliadoComponent } from './afiliado/afiliado.component';
 import { PerfilBarComponent } from './perfil-bar/perfil-bar.component';
 import { ProveedorPreferenciasComponent } from './proveedor-preferencias/proveedor-preferencias.component';
-import { MdButtonModule, MdAutocompleteModule, MdOptionModule, MdCheckboxModule } from '@angular/material';
+import { MdButtonModule, MdAutocompleteModule, MdOptionModule, MdCheckboxModule, MdTabsModule } from '@angular/material';
 import 'hammerjs';
 
 @NgModule({
@@ -86,6 +86,7 @@ import 'hammerjs';
     MdButtonModule,
     MdAutocompleteModule,
     MdOptionModule,
+    MdTabsModule,
     MdCheckboxModule,
     NgbModule.forRoot(),
     routes,
