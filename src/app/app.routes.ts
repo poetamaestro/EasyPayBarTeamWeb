@@ -22,6 +22,7 @@ import { MenuProveedorComponent } from './menu-proveedor/menu-proveedor.componen
 import { AfiliadoComponent } from './afiliado/afiliado.component';
 import { PerfilBarComponent } from './perfil-bar/perfil-bar.component';
 import { DetalleCompraComponent } from './detalle-compra/detalle-compra.component';
+import { ProveedorPreferenciasComponent } from './proveedor-preferencias/proveedor-preferencias.component';
 
 export const router: Routes = [
   { path: '', redirectTo: 'menu-admin', pathMatch: 'full' },
@@ -42,7 +43,8 @@ export const router: Routes = [
   { path: 'proveedor/:id/categoria/:idC/producto', component: ProductoComponent, canActivate: [AuthGuard] },
   { path: 'menu-proveedor', component: MenuProveedorComponent, canActivate: [AuthGuard] },
   { path: 'afiliado/:id', component: AfiliadoComponent, canActivate: [AuthGuard] },
-  { path: 'proveedor/:id/perfil-bar', component: PerfilBarComponent, canActivate: [AuthGuard] }
+  { path: 'proveedor/:id/perfil-bar', component: PerfilBarComponent, canActivate: [AuthGuard] },
+  { path: 'proveedor/:id/configurar-preferencias', component: ProveedorPreferenciasComponent, canActivate: [AuthGuard] }
 
 ]
 

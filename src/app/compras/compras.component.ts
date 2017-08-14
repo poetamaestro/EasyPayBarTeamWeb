@@ -33,9 +33,6 @@ export class ComprasComponent implements OnInit {
   @ViewChild('modalEliminarProducto')
   modalEliminarProducto: ModalComponent;
 
-  @ViewChild('modalProductoExistente')
-  modalProductoExistente: ModalComponent;
-
   @ViewChild('modalSaldoInsuficiente')
   modalSaldoInsuficiente: ModalComponent;
 
@@ -145,8 +142,8 @@ export class ComprasComponent implements OnInit {
         for (var i = 0; i < categoriaItems.length; i++) {
           var keyProductos: Array<any> = categoriaItems[i].producto;
           for (var keyPro in keyProductos) {
-            this.data.push({ keyCat: categoriaItems[i].$key, categoria: categoriaItems[i].nombre,
-             keyPro: keyPro, producto: keyProductos[keyPro].nombre, precio: keyProductos[keyPro].precio });
+            this.data.push({ categoriaId: categoriaItems[i].$key, categoria: categoriaItems[i].nombre,
+             productoId: keyPro, producto: keyProductos[keyPro].nombre, precio: keyProductos[keyPro].precio });
             this.onChangeTable(this.config);
           }
         }
@@ -231,7 +228,7 @@ export class ComprasComponent implements OnInit {
             this.afiliadoService.actualizarSaldo(this.idPro, saldoTotal, this.afiliado.key);
             for (var i = 0; i < this.listaProductosDetalle.length; i++) {
               this.actualizarVecesCompradas(this.listaProductosDetalle[i].cantidad, 
-                this.listaProductosDetalle[i].keyPro, this.listaProductosDetalle[i].keyCat);
+                this.listaProductosDetalle[i].productoId, this.listaProductosDetalle[i].categoriaId);
             }
           }  
         }
@@ -258,14 +255,32 @@ export class ComprasComponent implements OnInit {
   }
 
   agregarProductoDetalle(keyCat: string, categoria: string, keyPro: string, produ: string, precio: number) {
-    var indice = this.listaProductosDetalle.map(lista => lista.keyPro).indexOf(keyPro);
+    var indice = this.listaProductosDetalle.map(lista => lista.productoId).indexOf(keyPro);
     if (indice >= 0) {
-      this.modalProductoExistente.open();
+      for (var i = 0; i < this.listaProductosDetalle.length; i++) {
+        if (this.listaProductosDetalle[i].productoId == keyPro) {
+          var cantidad = this.listaProductosDetalle[i].cantidad;
+          this.aumentarCantidadProducto(keyCat, categoria, keyPro, produ, precio, cantidad);
+        }
+      }
+      this.calcularTotal();
     } else {
-      var producto = { keyPro: keyPro, keyCat: keyCat, categoria: categoria, producto: produ, 
+      var producto = { productoId: keyPro, categoriaId: keyCat, categoria: categoria, producto: produ, 
         precio: precio, cantidad: 1 };
       this.listaProductosDetalle.push(producto);
       this.calcularTotal();
+    }
+  }
+
+  aumentarCantidadProducto(keyCat: string, categoria: string, keyPro: string, produ: string, 
+    precio: number, cantidad: number) {
+    var indice = this.listaProductosDetalle.map(lista => lista.productoId).indexOf(keyPro);
+    if (indice >= 0) {
+      var cantidadTotal = cantidad + 1;
+      var producto = { productoId: keyPro, categoriaId: keyCat, categoria: categoria, producto: produ, 
+        precio: precio, cantidad: 1 };
+      this.listaProductosDetalle.splice(indice, 1, { productoId: keyPro, categoriaId: keyCat, 
+        categoria: categoria, producto: produ, precio: precio, cantidad: cantidadTotal });
     }
   }
 
@@ -278,7 +293,7 @@ export class ComprasComponent implements OnInit {
   }
 
   eliminarProductoDetalle() {
-    var indice = this.listaProductosDetalle.map(lista => lista.keyPro).indexOf(this.producto.key);
+    var indice = this.listaProductosDetalle.map(lista => lista.productoId).indexOf(this.producto.key);
     if (indice > -1) {
       this.listaProductosDetalle.splice(indice, 1);
     }
@@ -289,7 +304,7 @@ export class ComprasComponent implements OnInit {
   }
 
   actualizarProductoDetalle(cantidad: number) {
-    var indice = this.listaProductosDetalle.map(lista => lista.keyPro).indexOf(this.producto.key);
+    var indice = this.listaProductosDetalle.map(lista => lista.productoId).indexOf(this.producto.key);
     if (indice > -1) {
       this.listaProductosDetalle.splice(indice, 1, { cantidad: cantidad });
     }
