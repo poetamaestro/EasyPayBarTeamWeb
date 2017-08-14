@@ -878,3 +878,10 @@ i#return:hover {
 	margin-top: 50px;
   width: 100%;
 }
+
+.modal-body .ng2-pagination .disabled {
+  padding: 0.1875rem 0.625rem;
+  color: #0a0a0a;
+  font-size: inherit;
+  cursor: not-allowed;
+}

@@ -1,12 +1,12 @@
 import { Producto } from './producto';
 
 export class DetalleCompra {
-	keyPro: string;
-	keyCat: string;
+	productoId: string;
+	categoriaId: string;
 	categoria: string;
 	cantidad: number;
 	precio: number;
-	productos: string;
+	producto: string;
 
 	constructor() { }
 }
