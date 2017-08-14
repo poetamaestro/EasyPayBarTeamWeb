@@ -21,6 +21,7 @@
               <button type="button" class="btn btn-success btnEditarOpcion" (click)="cambiarImagenBar()"><i class="fa fa-check" aria-hidden="true"></i> Confirmar</button>
               <button type="button" class="btn btn-danger btnEditarOpcion" (click)="finalizarEditadoImagenBar()"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
             </div>
+
             <br>
             <button class="btn btn-primary btn-sm btnEditar" (click)="editarNombreBar()" [disabled]="editandoBarNombre"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
             <label>Nombre del bar:</label>
@@ -33,6 +34,20 @@
               <button type="button" class="btn btn-success btnEditarOpcion" *ngIf="!nombre.errors" data-dismiss="modal" (click)="cambiarNombreBar()"><i class="fa fa-check" aria-hidden="true"></i> Confirmar</button>
               <button type="button" class="btn btn-danger btnEditarOpcion" (click)="finalizarEditadoNombreBar()"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
             </div>
+
+            <button class="btn btn-primary btn-sm btnEditar" (click)="editarClaveBar()" [disabled]="editandoBarClave"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <label>Clave de proveedor:</label>
+            <div *ngIf="proveedor != undefined && !editandoBarClave">{{ proveedor.clave }}</div>
+            <div *ngIf="proveedor != undefined && editandoBarClave">
+              <input autofocus type="password" pattern=".{6,}" class="form-control txtNombreBar" name="txtnombre" [value]="proveedor.clave" [(ngModel)]="proveedor.clave"
+                placeholder="Ingrese el nombre del bar" #clave="ngModel" required />
+              <span style="color:#e74c3c;" *ngIf="clave.errors?.required"><p>La clave es requerida.</p></span>
+              <button type="button" class="btn btn-success btnEditarOpcion" *ngIf="clave.errors" disabled><i class="fa fa-check" aria-hidden="true"></i> Confirmar</button>
+              <button type="button" class="btn btn-success btnEditarOpcion" *ngIf="!clave.errors" data-dismiss="modal" (click)="cambiarClaveBar()"><i class="fa fa-check" aria-hidden="true"></i> Confirmar</button>
+              <button type="button" class="btn btn-danger btnEditarOpcion" (click)="finalizarEditadoClaveBar()"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
+            </div>
+
+
             <br>
             <label>Dueño del bar:</label>
             <div *ngIf="proveedor != undefined">{{ proveedor.nombre }}</div>

@@ -20,6 +20,9 @@ export class PerfilBarComponent implements OnInit, OnDestroy {
   titulo = 'Perfil del bar';
   private editandoBarNombre: boolean;
   private editandoBarImagen: boolean;
+//para editar la contraseña del proveedor
+  private editandoBarClave: boolean;
+
 
   // Variables para gestionar el perfil del bar
   private id;
@@ -38,6 +41,9 @@ export class PerfilBarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.editandoBarNombre = false;
     this.editandoBarImagen = false;
+    //para editar clave del bar
+    this.editandoBarClave = false;
+
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -95,6 +101,11 @@ export class PerfilBarComponent implements OnInit, OnDestroy {
     this.finalizarEditadoNombreBar();
   }
 
+  cambiarClaveBar() {
+    this.proveedorServicio.cambiarClave(this.id, this.proveedor.clave);
+    this.finalizarEditadoClaveBar();
+  }
+
   cambiarImagenBar() {
     // Si la imagen no es la default se borra la imagen del proveedor
     if (this.proveedor.imagen !== 'productos/bar_logo_default.jpg') {
@@ -128,12 +139,20 @@ export class PerfilBarComponent implements OnInit, OnDestroy {
     this.editandoBarNombre = true;
   }
 
+ editarClaveBar() {
+    this.editandoBarClave = true;
+  }
+
   editarImagenBar() {
     this.editandoBarImagen = true;
   }
-
+//---------------------------------------
   finalizarEditadoNombreBar() {
     this.editandoBarNombre = false;
+  }
+
+ finalizarEditadoClaveBar() {
+    this.editandoBarClave = false;
   }
 
   finalizarEditadoImagenBar() {

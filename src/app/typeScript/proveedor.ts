@@ -9,6 +9,7 @@ export class Proveedor {
 	imagen: string;
 	imagenURL: string;
 	nombre: string;
+	clave: string;
 
 	constructor(values: Object = {}) {
 		Object.assign(this, values);

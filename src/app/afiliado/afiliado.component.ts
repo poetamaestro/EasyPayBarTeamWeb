@@ -9,12 +9,14 @@ import { Recarga } from "../typeScript/recarga";
 import { DatePipe } from "@angular/common";
 import { Cliente } from './../typeScript/cliente';
 import { ClienteService } from '../service/cliente.service';
+import { ProveedorService } from './../service/proveedor.service';
+import { Proveedor } from './../typeScript/proveedor';
 import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-afiliado',
   templateUrl: './afiliado.component.html',
-  providers: [AfiliadoService, RecargaService, ClienteService]
+  providers: [AfiliadoService, RecargaService, ClienteService, ProveedorService]
 })
 export class AfiliadoComponent implements OnInit {
   @ViewChild('modalAfiliado')
@@ -22,12 +24,19 @@ export class AfiliadoComponent implements OnInit {
 
   @ViewChild('modalCrearAfiliado')
   modalCrearAfiliado: ModalComponent;
+ 
+ //para crear la nueva sub vista de validacion calve proveedor
+   @ViewChild('modalClave')
+  modalClave: ModalComponent;
 
   @ViewChild('modalVerificar')
   modalVerificar: ModalComponent;
 
   @ViewChild('modalRecargaExitosa')
   modalRecargaExitosa: ModalComponent;
+
+@ViewChild('modalIngresoNoExitoso')
+  modalIngresoNoExitoso: ModalComponent;
 
   @ViewChild('modalVerificarAfiliado')
   modalVerificarAfiliado: ModalComponent;
@@ -39,8 +48,11 @@ export class AfiliadoComponent implements OnInit {
   clientes: FirebaseListObservable<Cliente[]>;
   cliente: Cliente = new Cliente();
   recarga: Recarga = new Recarga();
+  objectProveedor: FirebaseListObservable<Proveedor[]>;
+  proveedor: Proveedor;
   isLogin: boolean = false;
   radioValue: string= "";
+  inputValue: string="";
   date: DatePipe = new DatePipe("en-US");
   nombre: string = "";
   key;
@@ -53,8 +65,8 @@ export class AfiliadoComponent implements OnInit {
 
   private id;
   private sub: any;
-  constructor(private route: ActivatedRoute, private afiliadoService: AfiliadoService, 
-    private recargaService: RecargaService, private clienteServicio: ClienteService, 
+  constructor(private route: ActivatedRoute, private afiliadoService: AfiliadoService, //se agrega al provedor service
+    private recargaService: RecargaService, private clienteServicio: ClienteService, private proveedorServicio: ProveedorService,
     private db: AngularFireDatabase) {
     this.datosCargados = true;
 
@@ -77,6 +89,16 @@ export class AfiliadoComponent implements OnInit {
     });
     this.afiliados = this.afiliadoService.getAfiliados(this.id);
     this.obtenerAfiliados();
+    //es para inicializar los datos del proveedor
+    this.getProveedor();
+  }
+
+  //para conseguir los datos del proveedor
+  getProveedor() {
+    this.objectProveedor = this.proveedorServicio.getById(this.id);
+    this.objectProveedor.subscribe(item => {
+      this.proveedor = item[0];
+    });
   }
 
   buscarClientesFiltrados(nombre: string) {
@@ -114,6 +136,21 @@ export class AfiliadoComponent implements OnInit {
     this.afiliado.saldo = parseFloat(saldo);
     this.modal.open();
   }
+
+validarclave(){
+      var clave1=this.inputValue;
+
+       if (this.proveedor.clave !== clave1) {
+this.modalIngresoNoExitoso.open();
+      ;
+    }else{  
+   this.modalClave.close();
+    this.modalVerificar.open();
+    this.modal.close();
+  
+    }
+
+}
 
   recargar() {
     this.modalVerificar.close();

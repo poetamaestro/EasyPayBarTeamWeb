@@ -1,4 +1,6 @@
 <app-nav-proveedor></app-nav-proveedor>
+
+
 <div class="component-container">
   <div class="page-head">
 
@@ -37,6 +39,7 @@
           </tr>
         </tbody>
       </table>
+      
 
       <!-- Pagination -->
       <pagination-controls *ngIf="!datosCargados" (pageChange)="p = $event"></pagination-controls>
@@ -63,12 +66,43 @@
 
       </li>
       <li class="list-group-item" style="text-align: center;">
-        <button style="width: 40%" type="button" class="btn btn-primary" (click)="modalVerificar.open(); modalAfiliado.close();"> <i class="fa fa-check" aria-hidden="true"></i> Recargar </button>
+        <button style="width: 40%" type="button" class="btn btn-primary" (click)="modalClave.open(); modalAfiliado.close();"> <i class="fa fa-check" aria-hidden="true"></i> Recargar </button>
         <button style="width: 40%" type="button" class="btn btn-danger " (click)="modal.close()"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
       </li>
     </ul>
   </modal-body>
 </modal>
+
+<modal #modalClave>
+  <modal-header >
+    <h4 class="modal-title">Confirmación de Datos Proveedor</h4>
+  </modal-header>
+
+  <modal-body class="form-horizontal">
+  <div class="form-group">
+    <label class="col-lg-3 control-label"><h5><b>Dueño del Bar:</b></h5></label>
+      <div class="col-lg-9">
+        <div *ngIf="proveedor != undefined">{{ proveedor.nombre }}</div>      
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-lg-3 control-label"><h5><b>Clave Provedor:</b></h5></label>
+      <div class="col-lg-9">
+      <input type="password" class="form-control" name="textclave" placeholder="Ingrese su clave de proveedor para continuar" [(ngModel)]="inputValue"/>
+      </div>      
+    </div>
+
+  </modal-body>
+
+  <modal-footer>
+    <div style="text-align: center;">
+      <button style="width: 40%" type="button" class="btn btn-primary" (click)="validarclave()"><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
+      <button style="width: 40%" type="button" class="btn btn-danger" (click)="modalClave.close(); modalAfiliado.open();"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
+    </div>
+  </modal-footer>
+</modal>
+
 
 <modal #modalVerificar>
   <modal-header >
@@ -78,18 +112,20 @@
   <modal-body>
     <div style="text-align: center;">
         <h3 >
-          Abonar ${{this.radioValue}} al cliente/a: "{{afiliado.nombre}}"<br>
-        </h3>
+          Abonar ${{this.radioValue}} al cliente/a: "{{afiliado.nombre}}"<br>   </h3>
+
     </div>
   </modal-body>
 
   <modal-footer>
     <div style="text-align: center;">
       <button style="width: 40%" type="button" class="btn btn-primary" (click)="recargar()"><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
-      <button style="width: 40%" type="button" class="btn btn-danger" (click)="modalVerificar.close(); modalAfiliado.open();"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
+      <button style="width: 40%" type="button" class="btn btn-danger" (click)="modalVerificar.close(); modalClave.open();"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
     </div>
   </modal-footer>
 </modal>
+
+
 
 <modal #modalRecargaExitosa>
   <modal-header >
@@ -100,7 +136,26 @@
   <modal-body >
     <div style="text-align: center;">
     <h3>
-      Recargar correctamente Realizada
+      Recarga correctamente Realizada
+    </h3>
+    </div>
+  </modal-body>
+
+  <modal-footer style="text-align: center;">
+    <button  style="width: 40%" type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-check-square" aria-hidden="true"></i> Aceptar</button>
+  </modal-footer>
+</modal>
+
+<modal #modalIngresoNoExitoso>
+  <modal-header >
+
+    <h4 class="modal-title">Mensaje</h4>
+  </modal-header>
+
+  <modal-body >
+    <div style="text-align: center;">
+    <h3>
+      ¡Clave Errónea! <br> Por favor vuelva a ingresar su clave
     </h3>
     </div>
   </modal-body>
@@ -185,5 +240,4 @@
     <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar </button>
   </modal-footer>
 </modal>
-
 
